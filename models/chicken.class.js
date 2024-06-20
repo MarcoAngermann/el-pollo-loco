@@ -12,6 +12,7 @@ IMAGES_WALKING_CHICKEN = [
         super().loadImage('img/3_enemies_chicken/chicken_normal/1_walk/2_w.png');
         this.loadImages(this.IMAGES_WALKING_CHICKEN);
         this.x = 200 + Math.random() * 500;
+        this.speed = 0.15 + Math.random() * 0.25;
         this.animate();
     }
     animate() {
@@ -21,6 +22,6 @@ IMAGES_WALKING_CHICKEN = [
             this.img = this.imageCache[path];
             this.currentImage++;
         },200);
-     
+        this.moveLeft();
     }
 }
