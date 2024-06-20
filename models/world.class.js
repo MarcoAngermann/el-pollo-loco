@@ -59,7 +59,18 @@ keyboard;
     }
 
     addToMap(moveobject) {
+        if(moveobject.otherDirection){
+            this.ctx.save();
+            this.ctx.translate(moveobject.width,0);
+            this.ctx.scale(-1,1);
+            moveobject.x = moveobject.x * -1;
+
+        }
         this.ctx.drawImage(moveobject.img, moveobject.x, moveobject.y, moveobject.width, moveobject.height);
+        if(moveobject.otherDirection){
+            moveobject.x = moveobject.x * -1;
+            this.ctx.restore();
+        }
     }
 }
 
