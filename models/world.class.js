@@ -26,10 +26,17 @@ backgroundObjects = [
 
 ctx;
 canvas;
-    constructor(canvas) {
+keyboard;
+    constructor(canvas, keyboard) {
+        this.keyboard = keyboard;
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.draw();
+        this.setWorld();
+    }
+
+    setWorld() {
+        this.character.world = this;
     }
 
 
