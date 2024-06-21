@@ -1,3 +1,4 @@
+
 class Chicken extends MovableObject {
 height = 80;
 width = 80;
@@ -14,13 +15,18 @@ IMAGES_WALKING_CHICKEN = [
         this.x = 200 + Math.random() * 500;
         this.speed = 0.15 + Math.random() * 0.25;
         this.animate();
+        this.chicken_audio = new Audio('audio/chicken1.mp3');
+        this.chicken_audio.volume = 0.04;
     }
+    
+    
     animate() {
         setInterval(() => {
             let i = this.currentImage % this.IMAGES_WALKING_CHICKEN.length;
             let path = this.IMAGES_WALKING_CHICKEN[i];
             this.img = this.imageCache[path];
             this.currentImage++;
+            this.chicken_audio.play();
         },200);
         this.moveLeft();
     }
