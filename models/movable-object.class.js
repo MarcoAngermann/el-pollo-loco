@@ -20,6 +20,14 @@ class MovableObject {
             this.imageCache[path] = img;
         });
     }
+
+    playAnimation(images) {
+        let i = this.currentImage % images.length;
+        let path = images[i];
+        let img = this.imageCache[path];
+        this.img = img;
+        this.currentImage++;
+    }
     
     moveRight() {
         console.log("moveRight");
