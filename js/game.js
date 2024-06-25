@@ -8,8 +8,7 @@ function init() {
     world = new World(canvas, keyboard);
     
     
-    console.log('My Character is',world.character)
-    console.log("chicken is here",world.enemies);
+    console.log('My Character is',world.character);
 }
 
 window.addEventListener('keydown', (event) => {

@@ -22,9 +22,13 @@ IMAGES_WALKING = [
     
     animate() {
         setInterval(() => {
+            this.moveLeft();
+        }, 1000 / 60);
+
+        setInterval(() => {
             this.playAnimation(this.IMAGES_WALKING);
             this.chicken_audio.play();
         },200);
-        this.moveLeft();
+        
     }
 }
