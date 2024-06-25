@@ -50,6 +50,13 @@ class World {
 
         }
         this.ctx.drawImage(moveobject.img, moveobject.x, moveobject.y, moveobject.width, moveobject.height);
+
+        this.ctx.beginPath();
+        this.ctx.lineWidth = "3";
+        this.ctx.strokeStyle = "blue";
+        this.ctx.rect(moveobject.x,moveobject.y, moveobject.x + moveobject.width, moveobject.y + moveobject.height);
+        this.ctx.stroke();
+
         if(moveobject.otherDirection){
             moveobject.x = moveobject.x * -1;
             this.ctx.restore();
