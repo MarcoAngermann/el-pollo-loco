@@ -33,11 +33,13 @@ class MovableObject {
     }
 
     drawFrame(ctx) {
+        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof smallChicken) {
         ctx.beginPath();
         ctx.lineWidth = "3";
         ctx.strokeStyle = "blue";
         ctx.rect(this.x, this.y, this.width, this.height);
         ctx.stroke();
+    }
     }
 
     loadImages(array) {
