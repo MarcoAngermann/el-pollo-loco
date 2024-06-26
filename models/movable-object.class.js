@@ -10,6 +10,7 @@ class MovableObject {
     speedY = 0;
     acceleration = 0.8;
     speed = 5;
+    energy = 100;
 
     applyGravity() {
         setInterval(() => {
@@ -47,6 +48,17 @@ class MovableObject {
                (this.y + this.height) >= moveobject.y &&
                (this.y) <= (moveobject.y + moveobject.height); // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
 
+    }
+
+    hit() {
+        this.energy -= 5;
+        if (this.energy < 0) {
+            this.energy = 0;
+        }
+    }
+
+    isDead() {
+        return this.energy == 0;
     }
 
     loadImages(array) {
