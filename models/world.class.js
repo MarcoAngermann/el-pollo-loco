@@ -11,11 +11,23 @@ class World {
         this.canvas = canvas;
         this.draw();
         this.setWorld();
+        this.checkCollisions();
     }
 
     setWorld() {
         this.character.world = this;
     }
+
+    checkCollisions(moveobject) {
+        setInterval(() => {
+            this.level.enemies.forEach((enemy) => {
+                if (this.character.isColliding(enemy)) {
+                    console.log('HIT', enemy);
+                }
+            })
+        }, 200);
+    }
+
 
 
     draw() {

@@ -15,8 +15,8 @@ IMAGES_WALKING = [
         this.x = 200 + Math.random() * 500;
         this.speed = 0.15 + Math.random() * 0.25;
         this.animate();
-        this.chicken_audio = new Audio('audio/chicken1.mp3');
-        this.chicken_audio.volume = 0.02;
+        // this.chicken_audio = new Audio('audio/chicken1.mp3');
+        // this.chicken_audio.volume = 0.02;
     }
     
     
@@ -27,7 +27,7 @@ IMAGES_WALKING = [
 
         setInterval(() => {
             this.playAnimation(this.IMAGES_WALKING);
-            this.chicken_audio.play();
+            // this.chicken_audio.play();
         },200);
         
     }
