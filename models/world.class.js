@@ -19,48 +19,51 @@ class World {
 
 
     draw() {
-        this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height);
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.translate(this.camera_x, 0);
-        
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.clouds);
-
         this.ctx.translate(-this.camera_x, 0);
 
         let self = this;
-        requestAnimationFrame(function() {
+        requestAnimationFrame(function () {
             self.draw();
         });
-        
+
     }
-    addObjectsToMap(objects){
+    addObjectsToMap(objects) {
         objects.forEach((object) => {
             this.addToMap(object);
         });
     }
 
     addToMap(moveobject) {
-        if(moveobject.otherDirection){
-            this.ctx.save();
-            this.ctx.translate(moveobject.width,0);
-            this.ctx.scale(-1,1);
-            moveobject.x = moveobject.x * -1;
+        if (moveobject.otherDirection) {
+            this.flipImage(moveobject);
 
         }
-        this.ctx.drawImage(moveobject.img, moveobject.x, moveobject.y, moveobject.width, moveobject.height);
+        moveobject.draw(this.ctx);
+        moveobject.drawFrame(this.ctx);
 
-        this.ctx.beginPath();
-        this.ctx.lineWidth = "3";
-        this.ctx.strokeStyle = "blue";
-        this.ctx.rect(moveobject.x,moveobject.y, moveobject.x + moveobject.width, moveobject.y + moveobject.height);
-        this.ctx.stroke();
-
-        if(moveobject.otherDirection){
-            moveobject.x = moveobject.x * -1;
-            this.ctx.restore();
+        if (moveobject.otherDirection) {
+            this.flipImageBack(moveobject);
         }
     }
+
+    flipImage(moveobject) {
+        this.ctx.save();
+        this.ctx.translate(moveobject.width, 0);
+        this.ctx.scale(-1, 1);
+        moveobject.x = moveobject.x * -1;
+    }
+    
+    flipImageBack(moveobject) {
+        moveobject.x = moveobject.x * -1;
+        this.ctx.restore();
+    }
 }
+
+
 
