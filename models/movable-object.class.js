@@ -18,16 +18,6 @@ class MovableObject extends DrawableObject {
         return this.y < 90;
     }
 
-    drawFrame(ctx) {
-        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof smallChicken) {
-            ctx.beginPath();
-            ctx.lineWidth = "3";
-            ctx.strokeStyle = "blue";
-            ctx.rect(this.x, this.y, this.width, this.height);
-            ctx.stroke();
-        }
-    }
-
     isColliding(moveobject) {
         return (this.x + this.width) >= moveobject.x && this.x <= (moveobject.x + moveobject.width) &&
                (this.y + this.height) >= moveobject.y &&
