@@ -56,3 +56,20 @@ window.addEventListener('keyup', (event) => {
     console.log(event);
     console.log(keyboard);
 });
+
+function fullScreen() {
+    let canvas = document.getElementById('canvas');
+    enterFullScreen(canvas);
+}
+
+function enterFullScreen(element) {
+    if (element.requestFullscreen) {
+        element.requestFullscreen();
+    } else if (element.msRequestFullscreen) {
+        element.msRequestFullscreen();
+    } else if (element.webkitRequestFullscreen) {
+        element.webkitRequestFullscreen();
+    } else if (element.mozRequestFullScreen) { // Unterstützung für Firefox
+        element.mozRequestFullScreen();
+    }
+}
