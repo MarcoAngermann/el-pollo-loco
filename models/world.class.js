@@ -1,6 +1,7 @@
 class World {
     character = new Character();
     level = level1;
+    coins = level1.coins;
     ctx;
     canvas;
     keyboard;
@@ -9,6 +10,7 @@ class World {
     statusBarBottle = new StatusBarBottle();
     statusBarCoin = new StatusBarCoin();
     throwableObject = [];
+    collectableObjects = [];
     constructor(canvas, keyboard) {
         this.keyboard = keyboard;
         this.ctx = canvas.getContext('2d');
@@ -37,8 +39,6 @@ class World {
             };
         }
     
-
-
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
@@ -64,6 +64,7 @@ class World {
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.throwableObject);
+        this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.clouds);
         this.ctx.translate(-this.camera_x, 0);
 
