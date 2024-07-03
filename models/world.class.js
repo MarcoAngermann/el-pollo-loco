@@ -52,6 +52,8 @@ class World {
                 this.throwableObject.push(bottle);
                 this.collectBottles.pop();  // Entfernt die letzte Flasche aus dem `collectBottles`-Array
                 this.character.decreaseEnergyBottle();
+                this.bottle_audio = new Audio('audio/bottle.mp3');
+                this.bottle_audio.play();
                 this.statusBarBottle.setPercentageBottle(this.character.energyBottle);
                 console.log('Bottle thrown');
                 console.log('Remaining collected bottles:', this.collectBottles);  // Das Array in der Konsole anzeigen
@@ -76,6 +78,8 @@ class World {
         this.level.coins.forEach((coin) => {
             if (this.character.isColliding(coin)) {
                 this.level.coins.splice(this.level.coins.indexOf(coin), 1);
+                this.playSoundCoin = new Audio('audio/coin.mp3');
+                this.playSoundCoin.play();
                 this.character.energyCoin += 10;
                 this.statusBarCoin.setPercentageCoin(this.character.energyCoin);
                 console.log('Coin collected', this.character.energyCoin);
