@@ -36,13 +36,31 @@ class World {
         }, 200);
     }
 
+    // checkThrowObjects() {
+    //     if (this.keyboard.E) {
+    //         let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
+    //         this.throwableObject.push(bottle);
+    //         console.log(this.throwableObject);
+    //         };
+    //     }
+
     checkThrowObjects() {
         if (this.keyboard.E) {
-            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
-            this.throwableObject.push(bottle);
-            console.log(this.throwableObject);
-            };
+            // Überprüfen, ob Flaschen im `collectBottles`-Array vorhanden sind
+            if (this.collectBottles.length > 0) {
+                let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
+                this.throwableObject.push(bottle);
+                this.collectBottles.pop();  // Entfernt die letzte Flasche aus dem `collectBottles`-Array
+                this.character.decreaseEnergyBottle();
+                this.statusBarBottle.setPercentageBottle(this.character.energyBottle);
+                console.log('Bottle thrown');
+                console.log('Remaining collected bottles:', this.collectBottles);  // Das Array in der Konsole anzeigen
+                console.log(this.throwableObject);  // Zeigt das `throwableObject`-Array in der Konsole an
+            } else {
+                console.log('No bottles to throw');
+            }
         }
+    }
     
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
@@ -81,13 +99,36 @@ class World {
                     this.statusBarBottle.setPercentageBottle(this.character.energyBottle);
                     this.collectBottles.push(bottle);  // Flasche in das Array `collectBottles` pushen
                     console.log('Bottle collected');
-                    console.log(this.collectBottles);
+                    console.log('Collected bottles:', this.collectBottles);  // Das Array in der Konsole anzeigen
                 } else {
                     console.log('Maximum number of bottles collected');
                 }
             }
         });
     }
+
+    // checkCollisionsBottles() {
+    //     // Überprüfen, ob das Array `collectBottles` existiert, andernfalls initialisieren
+    //     if (!this.collectBottles) {
+    //         this.collectBottles = [];
+    //     }
+    
+    //     this.level.bottles.forEach((bottle) => {
+    //         if (this.character.isColliding(bottle)) {
+    //             // Nur Flaschen einsammeln, wenn weniger als 5 Flaschen im `collectBottles` Array sind
+    //             if (this.collectBottles.length < 5) {
+    //                 this.level.bottles.splice(this.level.bottles.indexOf(bottle), 1);
+    //                 this.character.energyBottle += 20;
+    //                 this.statusBarBottle.setPercentageBottle(this.character.energyBottle);
+    //                 this.collectBottles.push(bottle);  // Flasche in das Array `collectBottles` pushen
+    //                 console.log('Bottle collected');
+    //                 console.log(this.collectBottles);
+    //             } else {
+    //                 console.log('Maximum number of bottles collected');
+    //             }
+    //         }
+    //     });
+    // }
     
 
     draw() {
