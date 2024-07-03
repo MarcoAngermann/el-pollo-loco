@@ -67,15 +67,28 @@ class World {
     }
 
     checkCollisionsBottles() {
+        // Überprüfen, ob das Array `collectBottles` existiert, andernfalls initialisieren
+        if (!this.collectBottles) {
+            this.collectBottles = [];
+        }
+    
         this.level.bottles.forEach((bottle) => {
             if (this.character.isColliding(bottle)) {
-                this.level.bottles.splice(this.level.bottles.indexOf(bottle), 1);
-                this.character.energyBottle += 20;
-                this.statusBarBottle.setPercentageBottle(this.character.energyBottle);
-                console.log('Bottle collected');
+                // Nur Flaschen einsammeln, wenn weniger als 5 Flaschen im `collectBottles` Array sind
+                if (this.collectBottles.length < 5) {
+                    this.level.bottles.splice(this.level.bottles.indexOf(bottle), 1);
+                    this.character.energyBottle += 20;
+                    this.statusBarBottle.setPercentageBottle(this.character.energyBottle);
+                    this.collectBottles.push(bottle);  // Flasche in das Array `collectBottles` pushen
+                    console.log('Bottle collected');
+                    console.log(this.collectBottles);
+                } else {
+                    console.log('Maximum number of bottles collected');
+                }
             }
-        })
+        });
     }
+    
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
