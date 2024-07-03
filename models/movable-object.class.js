@@ -4,6 +4,8 @@ class MovableObject extends DrawableObject {
     acceleration = 0.8;
     speed = 5;
     energy = 100;
+    energyBottle = 0;
+    energyCoin = 0;
     lastHit = 0;
 
     offset = {
@@ -45,6 +47,20 @@ class MovableObject extends DrawableObject {
             this.lastHit = new Date().getTime();
         }
     }
+
+    addEnergyBottle() {
+        this.energyBottle += 20;
+        if (this.energyBottle > 100) {
+          this.energyBottle = 100;
+        }
+      }
+
+      addEnergyCoin() {
+        this.energyCoin += 20;
+        if (this.energyCoin > 100) {
+          this.energyCoin = 100;
+        }
+      }
 
     isHurt() {
         let timepassed = new Date().getTime() - this.lastHit;

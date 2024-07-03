@@ -13,6 +13,7 @@ class World {
     throwableObject = [];
     collectCoins = [];
     collectBottles = [];
+    endbossInRange = false;
     constructor(canvas, keyboard) {
         this.keyboard = keyboard;
         this.ctx = canvas.getContext('2d');
@@ -57,6 +58,9 @@ class World {
         this.level.coins.forEach((coin) => {
             if (this.character.isColliding(coin)) {
                 this.level.coins.splice(this.level.coins.indexOf(coin), 1);
+                this.character.energyCoin += 10;
+                this.statusBarCoin.setPercentageCoin(this.character.energyCoin);
+                console.log('Coin collected', this.character.energyCoin);
 
             }
         })
@@ -66,6 +70,9 @@ class World {
         this.level.bottles.forEach((bottle) => {
             if (this.character.isColliding(bottle)) {
                 this.level.bottles.splice(this.level.bottles.indexOf(bottle), 1);
+                this.character.energyBottle += 20;
+                this.statusBarBottle.setPercentageBottle(this.character.energyBottle);
+                console.log('Bottle collected');
             }
         })
     }
@@ -78,6 +85,11 @@ class World {
 
         this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.statusBar);
+
+        if (this.endbossInRange) {
+            this.addToMap(this.statusBarEndboss);
+          }
+
         this.addToMap(this.statusBarBottle);
         this.addToMap(this.statusBarCoin); 
         this.ctx.translate(this.camera_x, 0);
