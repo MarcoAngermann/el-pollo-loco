@@ -45,7 +45,7 @@ class World {
         if (this.keyboard.E) {
             // Überprüfen, ob Flaschen im `collectBottles`-Array vorhanden sind
             if (this.collectBottles.length > 0) {
-                let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
+                let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, this.character.otherDirection);
                 this.throwableObject.push(bottle);
                 this.collectBottles.pop();  // Entfernt die letzte Flasche aus dem `collectBottles`-Array
                 this.character.decreaseEnergyBottle();

@@ -8,8 +8,7 @@ class ThrowableObject extends MovableObject {
         this.height = 75;
         this.width = 75;
         this.throw(100, 150);
-        this.otherDirection = false;
-        this.throwing = false; 
+        this.throwing = this.throw;
         this.otherDirection = direction;
         this.animate();
     }
@@ -23,7 +22,7 @@ class ThrowableObject extends MovableObject {
     throw() {
         this.speedY = 10;
         this.applyGravity();
-        this.throwing = true;
+        
         if (this.otherDirection == true) {
           setInterval(() => {
             this.x -= 10;
