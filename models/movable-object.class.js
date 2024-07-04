@@ -1,11 +1,13 @@
 class MovableObject extends DrawableObject {
     otherDirection = false;
+    throwing = false;
     speedY = 0;
     acceleration = 0.8;
     speed = 5;
     energy = 100;
     energyBottle = 0;
     energyCoin = 0;
+    energyEndboss = 100;
     lastHit = 0;
 
     offset = {
@@ -40,7 +42,7 @@ class MovableObject extends DrawableObject {
     }
 
     hit() {
-        this.energy -= 2;
+        this.energy -= 5;
         if (this.energy < 0) {
             this.energy = 0;
         } else {
@@ -97,5 +99,8 @@ class MovableObject extends DrawableObject {
 
     jump() {
         this.speedY = 15;
+        this.jump_audio = new Audio('audio/jump1.mp3');
+        this.jump_audio.play();
+        this.jump_audio.volume = 0.1;
     }
 }

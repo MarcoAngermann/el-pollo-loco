@@ -3,6 +3,7 @@ class Chicken extends MovableObject {
 height = 80;
 width = 80;
 y = 355;
+isDead = false;
 offset = {
     left: 4,
     top: 4,
@@ -21,20 +22,25 @@ IMAGES_WALKING = [
         this.x = 250 + Math.random() * 800;
         this.speed = 0.15 + Math.random() * 0.25;
         this.animate();
+        
         // this.chicken_audio = new Audio('audio/chicken1.mp3');
         // this.chicken_audio.volume = 0.02;
     }
     
-    
     animate() {
         setInterval(() => {
-            this.moveLeft();
+          this.moveLeft();
         }, 1000 / 60);
-
+    
         setInterval(() => {
+          if (this.isDead === false) {
             this.playAnimation(this.IMAGES_WALKING);
-            // this.chicken_audio.play();
-        },200);
-        
+          }
+          if (this.isDead === true) {
+            this.playAnimation(this.IMAGES_DEAD);
+          }
+        }, 200);
+      }
     }
-}
+
+

@@ -3,6 +3,9 @@ class World {
     level = level1;
     coins = level1.coins;
     bottles = level1.bottles;
+    enemies = level1.enemies;
+    clouds = level1.clouds;
+    backgroundObjects = level1.backgroundObjects;
     ctx;
     canvas;
     keyboard;
@@ -13,6 +16,7 @@ class World {
     throwableObject = [];
     collectCoins = [];
     collectBottles = [];
+    bottleBreak = false;
     endbossInRange = false;
     constructor(canvas, keyboard) {
         this.keyboard = keyboard;
@@ -36,14 +40,6 @@ class World {
         }, 200);
     }
 
-    // checkThrowObjects() {
-    //     if (this.keyboard.E) {
-    //         let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
-    //         this.throwableObject.push(bottle);
-    //         console.log(this.throwableObject);
-    //         };
-    //     }
-
     checkThrowObjects() {
         if (this.keyboard.E) {
             // Überprüfen, ob Flaschen im `collectBottles`-Array vorhanden sind
@@ -52,8 +48,9 @@ class World {
                 this.throwableObject.push(bottle);
                 this.collectBottles.pop();  // Entfernt die letzte Flasche aus dem `collectBottles`-Array
                 this.character.decreaseEnergyBottle();
-                this.bottle_audio = new Audio('audio/bottle.mp3');
-                this.bottle_audio.play();
+                this.throw_audio = new Audio('audio/throwing.mp3');
+                this.throw_audio.play();
+                this.throw_audio.volume = 0.3;
                 this.statusBarBottle.setPercentageBottle(this.character.energyBottle);
                 console.log('Bottle thrown');
                 console.log('Remaining collected bottles:', this.collectBottles);  // Das Array in der Konsole anzeigen
@@ -110,30 +107,6 @@ class World {
             }
         });
     }
-
-    // checkCollisionsBottles() {
-    //     // Überprüfen, ob das Array `collectBottles` existiert, andernfalls initialisieren
-    //     if (!this.collectBottles) {
-    //         this.collectBottles = [];
-    //     }
-    
-    //     this.level.bottles.forEach((bottle) => {
-    //         if (this.character.isColliding(bottle)) {
-    //             // Nur Flaschen einsammeln, wenn weniger als 5 Flaschen im `collectBottles` Array sind
-    //             if (this.collectBottles.length < 5) {
-    //                 this.level.bottles.splice(this.level.bottles.indexOf(bottle), 1);
-    //                 this.character.energyBottle += 20;
-    //                 this.statusBarBottle.setPercentageBottle(this.character.energyBottle);
-    //                 this.collectBottles.push(bottle);  // Flasche in das Array `collectBottles` pushen
-    //                 console.log('Bottle collected');
-    //                 console.log(this.collectBottles);
-    //             } else {
-    //                 console.log('Maximum number of bottles collected');
-    //             }
-    //         }
-    //     });
-    // }
-    
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
