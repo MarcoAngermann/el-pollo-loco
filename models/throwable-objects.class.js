@@ -7,9 +7,9 @@ class ThrowableObject extends MovableObject {
         this.y = y;
         this.height = 75;
         this.width = 75;
+        this.otherDirection = direction;
         this.throw(100, 150);
         this.throwing = this.throw;
-        this.otherDirection = direction;
         this.animate();
     }
     IMAGES_ROTATE = [
@@ -20,9 +20,8 @@ class ThrowableObject extends MovableObject {
       ];
 
     throw() {
-        this.speedY = 10;
         this.applyGravity();
-        
+        this.speedY = 10;
         if (this.otherDirection == true) {
           setInterval(() => {
             this.x -= 10;
