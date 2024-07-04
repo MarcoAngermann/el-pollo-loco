@@ -5,6 +5,7 @@ class World {
     bottles = level1.bottles;
     enemies = level1.enemies;
     clouds = level1.clouds;
+    endboss = level1.endboss;
     backgroundObjects = level1.backgroundObjects;
     ctx;
     canvas;
@@ -114,6 +115,7 @@ class World {
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.clouds);
+        this.addObjectsToMap(this.level.endboss);
 
 
         this.ctx.translate(-this.camera_x, 0);

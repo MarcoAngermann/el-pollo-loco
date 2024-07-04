@@ -6,9 +6,12 @@ const level1 = new Level([
     // new Chicken(),
     // new smallChicken(),
     // new smallChicken(),
-    // new smallChicken(),
-    new Endboss(),
-], [
+    // new smallChicken(),  
+],
+[
+    new Endboss() 
+], 
+[
     new Cloud(),
     new Cloud(),
     new Cloud(),
@@ -73,4 +76,5 @@ backgroundObjects = [
     new Bottle(),
     new Bottle(),
     new Bottle(),
-]);
+]
+,);
