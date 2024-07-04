@@ -1,5 +1,6 @@
 class Level {
     enemies;
+    // endboss;
     clouds;
     coins;
     bottles;
@@ -10,6 +11,7 @@ class Level {
         this.bottles = bottles;
         this.coins = coins;
         this.enemies = enemies;
+        // this.endboss = endboss;
         this.clouds = clouds;
         this.backgroundObjects = backgroundObjects;
         console.log('Chicken', enemies)

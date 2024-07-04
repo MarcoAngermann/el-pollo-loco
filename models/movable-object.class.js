@@ -1,4 +1,5 @@
 class MovableObject extends DrawableObject {
+    speedIfAngry = 0.2;
     otherDirection = false;
     throwing = false;
     speedY = 0;
@@ -8,6 +9,7 @@ class MovableObject extends DrawableObject {
     energyBottle = 0;
     energyCoin = 0;
     energyEndboss = 100;
+    immune = false;
     lastHit = 0;
 
     offset = {
