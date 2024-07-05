@@ -62,12 +62,33 @@ class World {
         }
     }
     
+    // checkCollisions() {
+    //     this.level.enemies.forEach((enemy, endboss) => {
+    //         if (this.character.isColliding(enemy, endboss)) {
+    //             this.character.hit();
+    //             this.statusBar.setPercentage(this.character.energy);
+    //             console.log('Character hit', this.character.energy);
+    //         }
+    //     })
+    // }
+
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
-                this.character.hit();
-                this.statusBar.setPercentage(this.character.energy);
-                console.log('Character hit', this.character.energy);
+                // Fall A: Character fällt runter
+                if(this.character.speedY < 0 && this.character.isAboveGround()) {
+                    this.character.speedY = 3; // Bounce back  
+                    // Chicken töten
+                    // Bild ändern von Chicken
+                    // Sound abpspielen
+                    setTimeout(() => {
+                        this.level.enemies.splice(this.level.enemies.indexOf(enemy), 1);
+                    }, 1000)
+                } else { // Fall B: Character ist auf dem Boden
+                    this.character.hit();
+                    this.statusBar.setPercentage(this.character.energy);
+                    console.log('Character hit', this.character.energy);
+                }
             }
         })
     }

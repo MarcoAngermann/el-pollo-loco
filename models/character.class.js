@@ -6,7 +6,7 @@ class Character extends MovableObject {
     speed = 5;
     idleTimePassed = 0;
     walking_sound = new Audio('audio/walking.mp3');
-    dead_sound = new Audio('audio/dead.mp3');
+    // dead_sound = new Audio('audio/dead.mp3');
     world;
     offset = {
         left: 20,
@@ -122,10 +122,12 @@ class Character extends MovableObject {
                 this.playAnimation(this.IMAGES_JUMPING);
             } else {
                 
-            if(this.world.keyboard.LEFT || this.world.keyboard.RIGHT){
-                this.playAnimation(this.IMAGES_WALKING);
+                if(this.world.keyboard.LEFT || this.world.keyboard.RIGHT){
+                    this.playAnimation(this.IMAGES_WALKING);
+                } else  {
+                    this.playAnimation(this.IMAGES_IDLE);
+                }
             }
-        }
-        },50);     
+        },100);       
     }
 }
