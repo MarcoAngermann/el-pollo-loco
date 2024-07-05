@@ -39,6 +39,6 @@ class ThrowableObject extends MovableObject {
           if (this.throwing) {
             this.playAnimation(this.IMAGES_ROTATE);
           }
-        }, 1000 / 60);
+        }, 600 / 60);
       }
     }
