@@ -73,19 +73,18 @@ class World {
     // }
 
     checkCollisions() {
-        this.level.enemies.forEach((enemy) => {
+        this.level.enemies.forEach((enemy, enemyIndex) => {
             if (this.character.isColliding(enemy)) {
-                // Fall A: Character fällt runter
                 if(this.character.speedY < 0 && this.character.isAboveGround()) {
-                    this.character.speedY = 5; // Bounce back  
+                    this.character.speedY = 15;
+                    this.character.x += 2;
                     // Chicken töten
                     enemy.isDead = true;
                     enemy.isDeadsmallChicken = true;
-                    // Bild ändern von Chicken
                     // Sound abpspielen
                     setTimeout(() => {
-                        this.level.enemies.splice(this.level.enemies.indexOf(enemy), 1);
-                    }, 1000)
+                        this.level.enemies.splice(enemyIndex, 1);   
+                    }, 200);
                 } else { // Fall B: Character ist auf dem Boden
                     this.character.hit();
                     this.statusBar.setPercentage(this.character.energy);
