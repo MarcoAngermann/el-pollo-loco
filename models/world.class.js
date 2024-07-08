@@ -80,6 +80,7 @@ class World {
                     this.character.speedY = 5; // Bounce back  
                     // Chicken töten
                     enemy.isDead = true;
+                    enemy.isDeadsmallChicken = true;
                     // Bild ändern von Chicken
                     // Sound abpspielen
                     setTimeout(() => {
