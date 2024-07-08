@@ -77,8 +77,9 @@ class World {
             if (this.character.isColliding(enemy)) {
                 // Fall A: Character fällt runter
                 if(this.character.speedY < 0 && this.character.isAboveGround()) {
-                    this.character.speedY = 3; // Bounce back  
+                    this.character.speedY = 5; // Bounce back  
                     // Chicken töten
+                    enemy.isDead = true;
                     // Bild ändern von Chicken
                     // Sound abpspielen
                     setTimeout(() => {
