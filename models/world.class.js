@@ -62,16 +62,6 @@ class World {
         }
     }
     
-    // checkCollisions() {
-    //     this.level.enemies.forEach((enemy, endboss) => {
-    //         if (this.character.isColliding(enemy, endboss)) {
-    //             this.character.hit();
-    //             this.statusBar.setPercentage(this.character.energy);
-    //             console.log('Character hit', this.character.energy);
-    //         }
-    //     })
-    // }
-
     checkCollisions() {
         this.level.enemies.forEach((enemy, enemyIndex) => {
             if (this.character.isColliding(enemy)) {
@@ -88,7 +78,7 @@ class World {
                 } else { // Fall B: Character ist auf dem Boden
                     this.character.hit();
                     this.statusBar.setPercentage(this.character.energy);
-                    console.log('Character hit', this.character.energy);
+                    // console.log('Character hit', this.character.energy);
                 }
             }
         })
@@ -102,8 +92,7 @@ class World {
                 this.playSoundCoin.play();
                 this.character.energyCoin += 10;
                 this.statusBarCoin.setPercentageCoin(this.character.energyCoin);
-                console.log('Coin collected', this.character.energyCoin);
-
+                // console.log('Coin collected', this.character.energyCoin);
             }
         })
     }
@@ -122,10 +111,10 @@ class World {
                     this.character.energyBottle += 20;
                     this.statusBarBottle.setPercentageBottle(this.character.energyBottle);
                     this.collectBottles.push(bottle);  // Flasche in das Array `collectBottles` pushen
-                    console.log('Bottle collected');
-                    console.log('Collected bottles:', this.collectBottles);  // Das Array in der Konsole anzeigen
+                    // console.log('Bottle collected');
+                    // console.log('Collected bottles:', this.collectBottles);  // Das Array in der Konsole anzeigen
                 } else {
-                    console.log('Maximum number of bottles collected');
+                    // console.log('Maximum number of bottles collected');
                 }
             }
         });
