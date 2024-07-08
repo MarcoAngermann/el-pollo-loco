@@ -73,7 +73,10 @@ class World {
                     enemy.isDeadsmallChicken = true;
                     // Sound abpspielen
                     setTimeout(() => {
-                        this.level.enemies.splice(enemyIndex, 1);   
+                        this.level.enemies.splice(enemyIndex, 1);
+                        this.playSoundChickendead = new Audio('audio/chickendead.mp3');
+                        this.playSoundChickendead.play();
+                        this.playSoundChickendead.volume = 0.3;
                     }, 200);
                 } else { // Fall B: Character ist auf dem Boden
                     this.character.hit();
@@ -108,6 +111,8 @@ class World {
                 // Nur Flaschen einsammeln, wenn weniger als 5 Flaschen im `collectBottles` Array sind
                 if (this.collectBottles.length < 5) {
                     this.level.bottles.splice(this.level.bottles.indexOf(bottle), 1);
+                    this.playSoundPlopp = new Audio('audio/bottleplopp.mp3');
+                    this.playSoundPlopp.play();
                     this.character.energyBottle += 20;
                     this.statusBarBottle.setPercentageBottle(this.character.energyBottle);
                     this.collectBottles.push(bottle);  // Flasche in das Array `collectBottles` pushen
