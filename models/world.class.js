@@ -76,7 +76,7 @@ class World {
                         this.level.enemies.splice(enemyIndex, 1);
                         this.playSoundChickendead = new Audio('audio/chickendead.mp3');
                         this.playSoundChickendead.play();
-                        this.playSoundChickendead.volume = 0.3;
+                        this.playSoundChickendead.volume = 0.2;
                     }, 200);
                 } else { // Fall B: Character ist auf dem Boden
                     this.character.hit();

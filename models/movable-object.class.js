@@ -45,6 +45,11 @@ class MovableObject extends DrawableObject {
 
     hit() {
         this.energy -= 1;
+        setTimeout(() => {
+            this.playSoundHurt = new Audio('audio/hurt.mp3');
+            this.playSoundHurt.play();
+            this.playSoundHurt.volume = 0.4;
+        }, 100)
         if (this.energy < 0) {
             this.energy = 0;
         } else {
