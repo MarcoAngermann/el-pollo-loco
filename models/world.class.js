@@ -38,7 +38,7 @@ class World {
             this.checkCollisionsCoins();
             this.checkCollisionsBottles();
             this.checkThrowObjects();
-        }, 200);
+        }, 100);
     }
 
     checkThrowObjects() {
@@ -77,7 +77,7 @@ class World {
                         this.playSoundChickendead = new Audio('audio/chickendead.mp3');
                         this.playSoundChickendead.play();
                         this.playSoundChickendead.volume = 0.2;
-                    }, 200);
+                    }, 100);
                 } else { // Fall B: Character ist auf dem Boden
                     this.character.hit();
                     this.statusBar.setPercentage(this.character.energy);

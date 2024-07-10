@@ -9,10 +9,10 @@ class Character extends MovableObject {
     // dead_sound = new Audio('audio/dead.mp3');
     world;
     offset = {
-        left: 20,
+        left: 25,
         top: 140,
         right: 25,
-        bottom: 10,
+        bottom: 5,
       };
     IMAGES_WALKING = [
         'img/2_character_pepe/2_walk/W-21.png',

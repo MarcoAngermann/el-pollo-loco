@@ -5,10 +5,10 @@ width = 80;
 y = 355;
 isDead = false;
 offset = {
-    left: 4,
-    top: 4,
-    right: 4,
-    bottom: 4,
+    left: 5,
+    top: 5,
+    right: 5,
+    bottom: 5,
   };
 IMAGES_WALKING = [
     'img/3_enemies_chicken/chicken_normal/1_walk/1_w.png',

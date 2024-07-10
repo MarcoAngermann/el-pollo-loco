@@ -1,13 +1,13 @@
 class smallChicken extends MovableObject {
-    height = 40;
-    width = 40;
-    y = 395;
+    height = 45;
+    width = 45;
+    y = 380;
     isDeadsmallChicken = false;
     offset = {
-        left: 2,
-        top: 2,
-        right: 2,
-        bottom: 2,
+        left: 4,
+        top: 4,
+        right: 4,
+        bottom: 4,
       };
     IMAGES_WALKING = [
         'img/3_enemies_chicken/chicken_small/1_walk/1_w.png',
@@ -18,7 +18,7 @@ class smallChicken extends MovableObject {
         'img/3_enemies_chicken/chicken_small/2_dead/dead.png',
       ];
     constructor() {
-        super().loadImage('img/3_enemies_chicken/chicken_small/1_walk/1_w.png');
+        super().loadImage('img/3_enemies_chicken/chicken_small/1_walk/2_w.png');
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_DEAD);
         this.x = 230 + Math.random() * 900;
