@@ -29,6 +29,7 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
+        this.canThrow = true; 
     }
 
     setWorld() {
@@ -59,9 +60,29 @@ class World {
         }
     }
     
+    // checkThrowObjects() {
+    //     if (this.keyboard.E) {
+    //         // Überprüfen, ob Flaschen im `collectBottles`-Array vorhanden sind
+    //         if (this.collectBottles.length > 0) {
+    //             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, this.character.otherDirection);
+    //             this.throwableObject.push(bottle);
+    //             this.collectBottles.pop();  // Entfernt die letzte Flasche aus dem `collectBottles`-Array
+    //             this.character.decreaseEnergyBottle();
+    //             this.throw_audio = new Audio('audio/throwing.mp3');
+    //             this.throw_audio.play();
+    //             this.throw_audio.volume = 0.3;
+    //             this.statusBarBottle.setPercentageBottle(this.character.energyBottle);
+    //             console.log('Bottle thrown');
+    //             console.log('Remaining collected bottles:', this.collectBottles);  // Das Array in der Konsole anzeigen
+    //             console.log(this.throwableObject);  // Zeigt das `throwableObject`-Array in der Konsole an
+    //         } else {
+    //             console.log('No bottles to throw');
+    //         }
+    //     }
+    // }
+
     checkThrowObjects() {
-        if (this.keyboard.E) {
-            // Überprüfen, ob Flaschen im `collectBottles`-Array vorhanden sind
+        if (this.keyboard.E && this.canThrow) {  // Überprüfe, ob das Werfen erlaubt ist
             if (this.collectBottles.length > 0) {
                 let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, this.character.otherDirection);
                 this.throwableObject.push(bottle);
@@ -74,11 +95,17 @@ class World {
                 console.log('Bottle thrown');
                 console.log('Remaining collected bottles:', this.collectBottles);  // Das Array in der Konsole anzeigen
                 console.log(this.throwableObject);  // Zeigt das `throwableObject`-Array in der Konsole an
+                
+                this.canThrow = false;  // Setze den Cooldown
+                setTimeout(() => {
+                    this.canThrow = true;  // Erlaube das Werfen nach einer Verzögerung von 1 Sekunde
+                }, 1000);  // 1000 Millisekunden = 1 Sekunde
             } else {
                 console.log('No bottles to throw');
             }
         }
     }
+
     
     checkCollisions() {
         this.level.enemies.forEach((enemy, enemyIndex) => {
