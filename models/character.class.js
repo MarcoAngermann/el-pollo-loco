@@ -1,23 +1,20 @@
 class Character extends MovableObject {
     x = 10;
-    y  = 50;
+    y = 50;
     height = 350;
     width = 150;
     speed = 5;
-    idleTimeout = null;
-    idleDuration = 200;
-    longIdleTimeout = null;
+    idleDuration = 1000;
     longIdleDuration = 5000;
-  
+
     walking_sound = new Audio('audio/walking.mp3');
-    // dead_sound = new Audio('audio/dead.mp3');
     world;
     offset = {
         left: 30,
         top: 140,
         right: 30,
         bottom: 15,
-      };
+    };
     IMAGES_WALKING = [
         'img/2_character_pepe/2_walk/W-21.png',
         'img/2_character_pepe/2_walk/W-22.png',
@@ -62,9 +59,9 @@ class Character extends MovableObject {
         'img/2_character_pepe/1_idle/idle/I-8.png',
         'img/2_character_pepe/1_idle/idle/I-9.png',
         'img/2_character_pepe/1_idle/idle/I-10.png',
-      ];
-    
-      IMAGES_SLEEPING = [
+    ];
+
+    IMAGES_SLEEPING = [
         'img/2_character_pepe/1_idle/long_idle/I-11.png',
         'img/2_character_pepe/1_idle/long_idle/I-12.png',
         'img/2_character_pepe/1_idle/long_idle/I-13.png',
@@ -75,8 +72,11 @@ class Character extends MovableObject {
         'img/2_character_pepe/1_idle/long_idle/I-18.png',
         'img/2_character_pepe/1_idle/long_idle/I-19.png',
         'img/2_character_pepe/1_idle/long_idle/I-20.png'
-      ];
-    
+    ];
+
+    frameInterval = 100; // Change this value to control the animation speed
+    lastFrameChangeTime = 0;
+    currentImageIndex = 0;
 
     constructor() {
         super().loadImage('img/2_character_pepe/1_idle/idle/I-1.png');
@@ -87,8 +87,8 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_SLEEPING);
         this.applyGravity();
+        this.resetIdleTimer();
         this.animate();
-        this.walking_sound.volume = 0.5;
         this.walking_sound.volume = 0.5;
     }
 
@@ -100,26 +100,20 @@ class Character extends MovableObject {
                 this.otherDirection = false;
                 this.walking_sound.play();
                 this.resetIdleTimer();
-            }
-        }, 1000 / 60);
-    
-        setInterval(() => {
-            if ((this.world.keyboard.LEFT || this.world.keyboard.A) && this.x > 0) {
+            } else if ((this.world.keyboard.LEFT || this.world.keyboard.A) && this.x > 0) {
                 this.moveLeft();
                 this.otherDirection = true;
                 this.walking_sound.play();
                 this.resetIdleTimer();
             }
-            
+
             if (this.world.keyboard.SPACE && !this.isAboveGround()) {
                 super.jump();
                 this.resetIdleTimer();
             }
-    
+
             this.world.camera_x = -this.x + 100;
-        }, 1000 / 60);
-    
-        setInterval(() => {
+
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
             } else if (this.isHurt()) {
@@ -131,36 +125,40 @@ class Character extends MovableObject {
                     this.playAnimation(this.IMAGES_WALKING);
                     this.resetIdleTimer();
                 } else {
-                    this.startIdleTimer();
+                    this.checkIdleState();
                 }
             }
-        }, 100);
+        }, 1000 / 60);
     }
 
+    checkIdleState() {
+        const now = Date.now();
+        const timeSinceLastActivity = now - this.lastActiveTime;
 
-    startIdleTimer() {
-        if (!this.idleTimeout && !this.longIdleTimeout) {
-            console.log('Starting idle timer');
-            this.idleTimeout = setTimeout(() => {
-                console.log('Playing idle animation');
-                this.playAnimation(this.IMAGES_IDLE);
-                this.longIdleTimeout = setTimeout(() => {
-                    console.log('Playing long idle animation');
-                    this.playAnimation(this.IMAGES_SLEEPING);
-                }, this.longIdleDuration);
-            }, this.idleDuration);
+        if (timeSinceLastActivity >= this.longIdleDuration) {
+            this.playAnimation(this.IMAGES_SLEEPING);
+        } else if (timeSinceLastActivity >= this.idleDuration) {
+            this.playAnimation(this.IMAGES_IDLE);
+        } else {
+            this.loadImage('img/2_character_pepe/1_idle/idle/I-1.png');
         }
     }
+
+    playAnimation(images) {
+        const now = Date.now();
+        if (now - this.lastFrameChangeTime >= this.frameInterval) {
+            this.currentImageIndex = (this.currentImageIndex + 1) % images.length;
+            this.img = this.imageCache[images[this.currentImageIndex]];
+            this.lastFrameChangeTime = now;
+        }
+    }
+
     resetIdleTimer() {
-        if (this.idleTimeout) {
-            clearTimeout(this.idleTimeout);
-            this.idleTimeout = null;
-        }
-        if (this.longIdleTimeout) {
-            clearTimeout(this.longIdleTimeout);
-            this.longIdleTimeout = null;
-        }
+        this.lastActiveTime = Date.now();
     }
-    
 
 }
+
+// Example usage:
+const character = new Character(world);
+character.animate();

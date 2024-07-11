@@ -45,20 +45,6 @@ class MovableObject extends DrawableObject {
         );
       }
 
-    // hit() {
-    //     this.energy -= 1;
-        
-    //         this.playSoundHurt = new Audio('audio/hurt.mp3');
-    //         this.playSoundHurt.play();
-    //         this.playSoundHurt.volume = 0.4;
-        
-    //     if (this.energy < 0) {
-    //         this.energy = 0;
-    //     } else {
-    //         this.lastHit = new Date().getTime();
-    //     }
-    // }
-
     hit(damage = 5) {
       if (!this.immune) {
           this.immune = true;

@@ -35,14 +35,6 @@ class World {
         this.character.world = this;
     }
 
-    // run() {
-    //     setInterval(() => {
-    //         this.checkCollisions();
-    //         this.checkCollisionsCoins();
-    //         this.checkCollisionsBottles();
-    //         this.checkThrowObjects();
-    //     }, 100);
-    // }
     run() {
         setInterval(() => {
             this.checkCollisions();
@@ -67,8 +59,6 @@ class World {
         }
     }
     
-    
-
     checkThrowObjects() {
         if (this.keyboard.E) {
             // Überprüfen, ob Flaschen im `collectBottles`-Array vorhanden sind
@@ -127,14 +117,12 @@ class World {
     }
 
     checkCollisionsBottles() {
-        // Überprüfen, ob das Array `collectBottles` existiert, andernfalls initialisieren
         if (!this.collectBottles) {
             this.collectBottles = [];
         }
     
         this.level.bottles.forEach((bottle) => {
             if (this.character.isColliding(bottle)) {
-                // Nur Flaschen einsammeln, wenn weniger als 5 Flaschen im `collectBottles` Array sind
                 if (this.collectBottles.length < 5) {
                     this.level.bottles.splice(this.level.bottles.indexOf(bottle), 1);
                     this.playSoundPlopp = new Audio('audio/bottleplopp.mp3');
