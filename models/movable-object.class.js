@@ -45,19 +45,38 @@ class MovableObject extends DrawableObject {
         );
       }
 
-    hit() {
-        this.energy -= 1;
-        setTimeout(() => {
-            this.playSoundHurt = new Audio('audio/hurt.mp3');
-            this.playSoundHurt.play();
-            this.playSoundHurt.volume = 0.4;
-        }, 100)
-        if (this.energy < 0) {
-            this.energy = 0;
-        } else {
-            this.lastHit = new Date().getTime();
-        }
-    }
+    // hit() {
+    //     this.energy -= 1;
+        
+    //         this.playSoundHurt = new Audio('audio/hurt.mp3');
+    //         this.playSoundHurt.play();
+    //         this.playSoundHurt.volume = 0.4;
+        
+    //     if (this.energy < 0) {
+    //         this.energy = 0;
+    //     } else {
+    //         this.lastHit = new Date().getTime();
+    //     }
+    // }
+
+    hit(damage = 5) {
+      if (!this.immune) {
+          this.immune = true;
+          this.playSoundHurt = new Audio('audio/hurt.mp3');
+          this.playSoundHurt.play();
+          this.playSoundHurt.volume = 0.4;
+          this.energy -= damage; // Verwendet den übergebenen Schadenswert oder den Standardwert 5
+          if (this.energy < 0) {
+              this.energy = 0;
+          } else {
+              this.lastHit = new Date().getTime();
+          }
+          setTimeout(() => {
+              this.immune = false;
+          }, 1500);
+      }
+  }
+  
 
     addEnergyBottle() {
         this.energyBottle += 20;
@@ -94,7 +113,7 @@ class MovableObject extends DrawableObject {
         let i = this.currentImage % images.length;
         let path = images[i];
         let img = this.imageCache[path];
-        this.img = img;
+        this.img.src = img.src; 
         this.currentImage++;
     }
 

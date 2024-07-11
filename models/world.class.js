@@ -19,6 +19,9 @@ class World {
     collectBottles = [];
     bottleBreak = false;
     endbossInRange = false;
+    refillInterval = 10000; // Intervallzeit in Millisekunden (10 Sekunden)
+    maxBottles = 10; // Maximale Anzahl der Flaschen
+
     constructor(canvas, keyboard) {
         this.keyboard = keyboard;
         this.ctx = canvas.getContext('2d');
@@ -32,14 +35,39 @@ class World {
         this.character.world = this;
     }
 
+    // run() {
+    //     setInterval(() => {
+    //         this.checkCollisions();
+    //         this.checkCollisionsCoins();
+    //         this.checkCollisionsBottles();
+    //         this.checkThrowObjects();
+    //     }, 100);
+    // }
     run() {
         setInterval(() => {
             this.checkCollisions();
             this.checkCollisionsCoins();
             this.checkCollisionsBottles();
+            this.checkEndbossCollision();
             this.checkThrowObjects();
         }, 100);
+        this.startRefillTimer(); // Refill-Timer starten
     }
+
+    startRefillTimer() {
+        setInterval(() => {
+            this.refillBottles();
+        }, this.refillInterval);
+    }
+    
+    refillBottles() {
+        if (this.bottles.length < this.maxBottles) {
+            this.bottles.push(new Bottle());
+            console.log('Bottles refilled:', this.bottles);
+        }
+    }
+    
+    
 
     checkThrowObjects() {
         if (this.keyboard.E) {
@@ -67,18 +95,16 @@ class World {
             if (this.character.isColliding(enemy)) {
                 if(this.character.speedY < 0 && this.character.isAboveGround()) {
                     this.character.speedY = 15;
-                    this.character.x += 2;
-                    // Chicken töten
+                    this.character.x += 2; 
                     enemy.isDead = true;
                     enemy.isDeadsmallChicken = true;
-                    // Sound abpspielen
                     setTimeout(() => {
                         this.level.enemies.splice(enemyIndex, 1);
                         this.playSoundChickendead = new Audio('audio/chickendead.mp3');
                         this.playSoundChickendead.play();
                         this.playSoundChickendead.volume = 0.2;
                     }, 100);
-                } else { // Fall B: Character ist auf dem Boden
+                } else {
                     this.character.hit();
                     this.statusBar.setPercentage(this.character.energy);
                     // console.log('Character hit', this.character.energy);
@@ -187,7 +213,20 @@ class World {
         moveobject.x = moveobject.x * -1;
         this.ctx.restore();
     }
+
+    checkEndbossCollision() {
+        this.level.endboss.forEach((endboss) => {
+          if (this.character.isColliding(endboss)) {
+            let endbossDamage = 20;
+            this.character.hit(endbossDamage);
+            console.log('Character hit', this.character.energy);
+            this.statusBar.setPercentage(this.character.energy);
+          }
+        });
+      }
 }
+
+
 
 
 

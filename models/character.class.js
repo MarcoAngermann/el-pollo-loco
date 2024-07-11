@@ -4,15 +4,19 @@ class Character extends MovableObject {
     height = 350;
     width = 150;
     speed = 5;
-    idleTimePassed = 0;
+    idleTimeout = null;
+    idleDuration = 200;
+    longIdleTimeout = null;
+    longIdleDuration = 5000;
+  
     walking_sound = new Audio('audio/walking.mp3');
     // dead_sound = new Audio('audio/dead.mp3');
     world;
     offset = {
-        left: 25,
+        left: 30,
         top: 140,
-        right: 25,
-        bottom: 5,
+        right: 30,
+        bottom: 15,
       };
     IMAGES_WALKING = [
         'img/2_character_pepe/2_walk/W-21.png',
@@ -57,7 +61,7 @@ class Character extends MovableObject {
         'img/2_character_pepe/1_idle/idle/I-7.png',
         'img/2_character_pepe/1_idle/idle/I-8.png',
         'img/2_character_pepe/1_idle/idle/I-9.png',
-        'img/2_character_pepe/1_idle/idle/I-10.png'
+        'img/2_character_pepe/1_idle/idle/I-10.png',
       ];
     
       IMAGES_SLEEPING = [
@@ -76,11 +80,11 @@ class Character extends MovableObject {
 
     constructor() {
         super().loadImage('img/2_character_pepe/1_idle/idle/I-1.png');
+        this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
-        this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_SLEEPING);
         this.applyGravity();
         this.animate();
@@ -91,43 +95,72 @@ class Character extends MovableObject {
     animate() {
         setInterval(() => {
             this.walking_sound.pause();
-            if((this.world.keyboard.RIGHT || this.world.keyboard.D) && this.x < this.world.level.level_end_x){
-               this.moveRight();
-               this.otherDirection = false;
-               this.walking_sound.play();
+            if ((this.world.keyboard.RIGHT || this.world.keyboard.D) && this.x < this.world.level.level_end_x) {
+                this.moveRight();
+                this.otherDirection = false;
+                this.walking_sound.play();
+                this.resetIdleTimer();
             }
-        },1000 / 60);
+        }, 1000 / 60);
+    
         setInterval(() => {
-            if((this.world.keyboard.LEFT || this.world.keyboard.A) && this.x > 0){
+            if ((this.world.keyboard.LEFT || this.world.keyboard.A) && this.x > 0) {
                 this.moveLeft();
                 this.otherDirection = true;
                 this.walking_sound.play();
+                this.resetIdleTimer();
             }
             
-            if(this.world.keyboard.SPACE && !this.isAboveGround()) {
+            if (this.world.keyboard.SPACE && !this.isAboveGround()) {
                 super.jump();
-            };
-
+                this.resetIdleTimer();
+            }
+    
             this.world.camera_x = -this.x + 100;
-        },1000 / 60);
-
-        
-        
+        }, 1000 / 60);
+    
         setInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
-            } else if(this.isHurt()){
+            } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
-            } else if(this.isAboveGround()) {
+            } else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
             } else {
-                
-                if(this.world.keyboard.LEFT || this.world.keyboard.RIGHT){
+                if (this.world.keyboard.LEFT || this.world.keyboard.RIGHT) {
                     this.playAnimation(this.IMAGES_WALKING);
-                } else  {
-                    this.playAnimation(this.IMAGES_IDLE);
+                    this.resetIdleTimer();
+                } else {
+                    this.startIdleTimer();
                 }
             }
-        },100);       
+        }, 100);
     }
+
+
+    startIdleTimer() {
+        if (!this.idleTimeout && !this.longIdleTimeout) {
+            console.log('Starting idle timer');
+            this.idleTimeout = setTimeout(() => {
+                console.log('Playing idle animation');
+                this.playAnimation(this.IMAGES_IDLE);
+                this.longIdleTimeout = setTimeout(() => {
+                    console.log('Playing long idle animation');
+                    this.playAnimation(this.IMAGES_SLEEPING);
+                }, this.longIdleDuration);
+            }, this.idleDuration);
+        }
+    }
+    resetIdleTimer() {
+        if (this.idleTimeout) {
+            clearTimeout(this.idleTimeout);
+            this.idleTimeout = null;
+        }
+        if (this.longIdleTimeout) {
+            clearTimeout(this.longIdleTimeout);
+            this.longIdleTimeout = null;
+        }
+    }
+    
+
 }

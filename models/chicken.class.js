@@ -26,10 +26,14 @@ IMAGES_DEAD = [
         this.x = 500 + Math.random() * 1800;
         this.speed = 0.15 + Math.random() * 0.25;
         this.animate();
-        
+        this.randomizePosition();
         // this.chicken_audio = new Audio('audio/chicken1.mp3');
         // this.chicken_audio.volume = 0.02;
     }
+
+    randomizePosition() {
+      this.x = 300 + Math.random() * 2500;
+     }
     
     animate() {
         setInterval(() => {

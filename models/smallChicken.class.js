@@ -1,6 +1,6 @@
 class smallChicken extends MovableObject {
-    height = 45;
-    width = 45;
+    height = 50;
+    width = 50;
     y = 380;
     isDeadsmallChicken = false;
     offset = {
@@ -24,17 +24,22 @@ class smallChicken extends MovableObject {
         this.x = 230 + Math.random() * 900;
         this.speed = 0.15 + Math.random() * 0.25;
         this.animate();
+        this.randomizePosition();
     }
+
+    randomizePosition() {
+      this.x = 300 + Math.random() * 2500;
+     }
     animate() {
         setInterval(() => {
           this.moveLeft();
         }, 1000 / 60);
     
         setInterval(() => {
-          if (this.isDead === false) {
+          if (this.isDeadsmallChicken === false) {
             this.playAnimation(this.IMAGES_WALKING);
           }
-          if (this.isDead === true) {
+          if (this.isDeadsmallChicken === true) {
             this.playAnimation(this.IMAGES_DEAD);
           }
         }, 200);
