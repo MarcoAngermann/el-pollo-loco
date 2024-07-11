@@ -106,14 +106,11 @@ class Character extends MovableObject {
                 this.walking_sound.play();
                 this.resetIdleTimer();
             }
-
             if (this.world.keyboard.SPACE && !this.isAboveGround()) {
                 super.jump();
                 this.resetIdleTimer();
             }
-
             this.world.camera_x = -this.x + 100;
-
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
             } else if (this.isHurt()) {
@@ -134,7 +131,6 @@ class Character extends MovableObject {
     checkIdleState() {
         const now = Date.now();
         const timeSinceLastActivity = now - this.lastActiveTime;
-
         if (timeSinceLastActivity >= this.longIdleDuration) {
             this.playAnimation(this.IMAGES_SLEEPING);
         } else if (timeSinceLastActivity >= this.idleDuration) {
@@ -158,5 +154,3 @@ class Character extends MovableObject {
     }
 
 }
-const character = new Character(world);
-character.animate();
