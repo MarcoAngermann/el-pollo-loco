@@ -116,7 +116,7 @@ class World {
                 this.playSoundCoin.play();
                 this.character.energyCoin += 10;
                 this.statusBarCoin.setPercentageCoin(this.character.energyCoin);
-                // console.log('Coin collected', this.character.energyCoin);
+                console.log('Coin collected', this.character.energyCoin);
             }
         })
     }
