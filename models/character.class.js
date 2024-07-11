@@ -74,7 +74,7 @@ class Character extends MovableObject {
         'img/2_character_pepe/1_idle/long_idle/I-20.png'
     ];
 
-    frameInterval = 100; // Change this value to control the animation speed
+    frameInterval = 100;
     lastFrameChangeTime = 0;
     currentImageIndex = 0;
 
@@ -158,7 +158,5 @@ class Character extends MovableObject {
     }
 
 }
-
-// Example usage:
 const character = new Character(world);
 character.animate();
