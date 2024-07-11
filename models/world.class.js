@@ -106,7 +106,6 @@ class World {
         }
     }
 
-    
     checkCollisions() {
         this.level.enemies.forEach((enemy, enemyIndex) => {
             if (this.character.isColliding(enemy)) {
