@@ -107,35 +107,35 @@ decreaseEnergyEndboss() {
       this.endbossImmune = false;
     }, 200);
   }
-  this.checkAngryEndboss();
+  // this.checkAngryEndboss();
 }
 
-checkAngryEndboss() {
-  if (this.energyEndboss <= 20) {
-    this.isAlert = true;
-    this.moveLeftAngry = false;
-    setTimeout(() => {
-      if (!masterSound) {
-        this.alert_sound.play();
-      }
-    }, 10);
-    setTimeout(() => {
-      this.isAlert = false;
-      this.moveLeftAngry = true;
+// checkAngryEndboss() {
+//   if (this.energyEndboss <= 20) {
+//     this.isAlert = true;
+//     this.moveLeftAngry = false;
+//     setTimeout(() => {
+//       if (!masterSound) {
+//         this.alert_sound.play();
+//       }
+//     }, 10);
+//     setTimeout(() => {
+//       this.isAlert = false;
+//       this.moveLeftAngry = true;
 
-    }, 1500);
-  }
-}
+//     }, 1500);
+//   }
+// }
 
 
 
-moveLeftIfEndbossIsAngry() {
-  this.x -= this.speedIfAngry;
-}
+// moveLeftIfEndbossIsAngry() {
+//   this.x -= this.speedIfAngry;
+// }
 
-moveRightIfEndbossIsAngry() {
-  this.x += this.speedIfAngry;
-}
+// moveRightIfEndbossIsAngry() {
+//   this.x += this.speedIfAngry;
+// }
 
 
 isDeadEndboss() {
@@ -193,13 +193,13 @@ updateCharacter() {
   }
 }
 
-checkIfCharacterIsDead() {
-  this.playAnimation(this.IMAGES_DEAD);
-  if (!masterSound) {
-    this.endbossdead_sound.play().volume = 0.1;
-  }
-  setTimeout(() => {
-    winGame();
-  }, 700);
-}
+// checkIfCharacterIsDead() {
+//   this.playAnimation(this.IMAGES_DEAD);
+//   if (!masterSound) {
+//     this.endbossdead_sound.play().volume = 0.1;
+//   }
+//   setTimeout(() => {
+//     winGame();
+//   }, 700);
+// }
 }

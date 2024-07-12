@@ -43,7 +43,8 @@ class World {
             this.checkCollisionsBottles();
             this.checkEndbossCollision();
             this.checkThrowObjects();
-            this.checkCollisionThrowableWithChicken()
+            this.checkCollisionThrowableWithChicken();
+            this.checkCollisionThrowableWithEndboss();
         }, 100);
         this.startRefillTimer(); // Refill-Timer starten
     }
@@ -89,7 +90,7 @@ class World {
         this.throwableObject.forEach((throwableObject, throwableIndex) => {
           this.level.enemies.forEach((enemy, enemyIndex) => {
             if (throwableObject.isColliding(enemy)) {
-              if (!enemy.isDead && !enemy.isDeadsmallChicken) {
+              if (!enemy.isDead || !enemy.isDeadsmallChicken) {
                 enemy.isDead = true;
                 enemy.isDeadsmallChicken = true;
                 setTimeout(() => {
@@ -104,6 +105,23 @@ class World {
           });
         });
       }
+
+      checkCollisionThrowableWithEndboss() {
+        this.throwableObject.forEach((throwableObject, throwableIndex) => {
+          if (throwableObject.isColliding(this.level.endboss)) {
+            console.log("Endboss getroffen!");
+            this.level.endboss.hitBottleEndboss();
+            this.level.endboss.decreaseEnergyEndboss();
+            if (this.level.endboss.energyEndboss <= 0) {
+              console.log("Endboss ist tot!");
+              this.level.endboss.isDeadEndboss();
+            }
+            this.throwableObject.splice(throwableIndex, 1);
+          }
+        });
+      }
+      
+      
 
     checkCollisions() {
         this.level.enemies.forEach((enemy, enemyIndex) => {
