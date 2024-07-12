@@ -115,28 +115,26 @@ class StatusBarBottle extends DrawableObject {
     }
   
     setPercentageCoin(percentageCoin) {
-      this.percentageCoin = percentageCoin;
+      this.percentageCoin = Math.min(100, Math.max(0, percentageCoin));
       let path = this.IMAGES[this.setImagesPercentageCoin()];
       this.img = this.imageCache[path];
     }
   
     setImagesPercentageCoin() {
-      if (this.percentageCoin == 100) {
-        return 5;
-      } else if (this.percentageCoin == 0) {
-        return 0;
+      if (this.percentageCoin <= 10) {
+          return 0; // Kein Balken anzeigen
       } else if (this.percentageCoin <= 20) {
-        return 1;
+          return 1; // Erster Balken anzeigen
       } else if (this.percentageCoin <= 40) {
-        return 2;
+          return 2;
       } else if (this.percentageCoin <= 60) {
-        return 3;
-      } else if (this.percentageCoin <= 80) {
-        return 4;
+          return 3;
+      } else if (this.percentageCoin <= 90) {
+          return 4;
       } else {
-        return 1;
+          return 5;
       }
-    }
+  }
   }
 
   class StatusBarEndboss extends DrawableObject {

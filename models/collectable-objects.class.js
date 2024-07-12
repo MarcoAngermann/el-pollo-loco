@@ -22,7 +22,7 @@ class Coin extends MovableObject {
   
   
     randomizePosition() {
-      this.x = 500 + Math.random() * 1900;
+      this.x = 500 + Math.random() * 1600;
       this.y = 60 + Math.random() * 100;
     }
   

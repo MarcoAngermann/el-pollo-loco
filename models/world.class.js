@@ -43,6 +43,7 @@ class World {
             this.checkCollisionsBottles();
             this.checkEndbossCollision();
             this.checkThrowObjects();
+            this.checkCollisionThrowableWithChicken()
         }, 100);
         this.startRefillTimer(); // Refill-Timer starten
     }
@@ -74,7 +75,6 @@ class World {
                 console.log('Bottle thrown');
                 console.log('Remaining collected bottles:', this.collectBottles);  // Das Array in der Konsole anzeigen
                 console.log(this.throwableObject);  // Zeigt das `throwableObject`-Array in der Konsole an
-                
                 this.canThrow = false;  // Setze den Cooldown
                 setTimeout(() => {
                     this.canThrow = true;  // Erlaube das Werfen nach einer Verzögerung von 1 Sekunde
@@ -84,6 +84,26 @@ class World {
             }
         }
     }
+
+    checkCollisionThrowableWithChicken() {
+        this.throwableObject.forEach((throwableObject, throwableIndex) => {
+          this.level.enemies.forEach((enemy, enemyIndex) => {
+            if (throwableObject.isColliding(enemy)) {
+              if (!enemy.isDead && !enemy.isDeadsmallChicken) {
+                enemy.isDead = true;
+                enemy.isDeadsmallChicken = true;
+                setTimeout(() => {
+                  this.playSoundChickendead = new Audio('audio/chickendead.mp3');
+                  this.playSoundChickendead.play();
+                  this.playSoundChickendead.volume = 0.2;
+                  this.level.enemies.splice(enemyIndex, 1);
+                }, 300);
+              }
+              this.throwableObject.splice(throwableIndex, 1);
+            }
+          });
+        });
+      }
 
     checkCollisions() {
         this.level.enemies.forEach((enemy, enemyIndex) => {
@@ -102,30 +122,31 @@ class World {
                 } else {
                     this.character.hit();
                     this.statusBar.setPercentage(this.character.energy);
-                    // console.log('Character hit', this.character.energy);
                 }
             }
         })
     }
 
     checkCollisionsCoins() {
+        const totalCoins = 10;
+        console.log('Initial energyCoin:', this.character.energyCoin);
         this.level.coins.forEach((coin) => {
             if (this.character.isColliding(coin)) {
                 this.level.coins.splice(this.level.coins.indexOf(coin), 1);
                 this.playSoundCoin = new Audio('audio/coin.mp3');
                 this.playSoundCoin.play();
-                this.character.energyCoin += 10;
+                const percentagePerCoin = 100 / totalCoins;
+                this.character.energyCoin += percentagePerCoin;
+                this.character.energyCoin = Math.min(100, this.character.energyCoin);
                 this.statusBarCoin.setPercentageCoin(this.character.energyCoin);
-                console.log('Coin collected', this.character.energyCoin);
             }
-        })
+        });
     }
-
+    
     checkCollisionsBottles() {
         if (!this.collectBottles) {
             this.collectBottles = [];
         }
-    
         this.level.bottles.forEach((bottle) => {
             if (this.character.isColliding(bottle)) {
                 if (this.collectBottles.length < 5) {
@@ -134,11 +155,8 @@ class World {
                     this.playSoundPlopp.play();
                     this.character.energyBottle += 20;
                     this.statusBarBottle.setPercentageBottle(this.character.energyBottle);
-                    this.collectBottles.push(bottle);  // Flasche in das Array `collectBottles` pushen
-                    // console.log('Bottle collected');
-                    // console.log('Collected bottles:', this.collectBottles);  // Das Array in der Konsole anzeigen
+                    this.collectBottles.push(bottle);
                 } else {
-                    // console.log('Maximum number of bottles collected');
                 }
             }
         });
@@ -151,25 +169,19 @@ class World {
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.endboss);
-
-
         this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.statusBar);
-
         if (this.endbossInRange) {
             this.addToMap(this.statusBarEndboss);
           }
-
         this.addToMap(this.statusBarBottle);
         this.addToMap(this.statusBarCoin); 
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.throwableObject);
         this.addObjectsToMap(this.level.coins);
-        this.addObjectsToMap(this.level.bottles);
-        
+        this.addObjectsToMap(this.level.bottles);       
         this.ctx.translate(-this.camera_x, 0);
-
         let self = this;
         requestAnimationFrame(function () {
             self.draw();

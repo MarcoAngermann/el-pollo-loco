@@ -1,4 +1,10 @@
 class ThrowableObject extends MovableObject { 
+  offset = {
+    left: 20,
+    top: 20,
+    right: 20,
+    bottom: 20,
+  };
 
     constructor(x, y, direction) {
         super().loadImage('img/6_salsa_bottle/salsa_bottle.png');
@@ -39,6 +45,9 @@ class ThrowableObject extends MovableObject {
           if (this.throwing) {
             this.playAnimation(this.IMAGES_ROTATE);
           }
-        }, 600 / 60);
+        }, 250 / 60);
       }
+
+    
     }
+    
