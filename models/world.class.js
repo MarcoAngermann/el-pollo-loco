@@ -108,18 +108,23 @@ class World {
 
       checkCollisionThrowableWithEndboss() {
         this.throwableObject.forEach((throwableObject, throwableIndex) => {
-          if (throwableObject.isColliding(this.level.endboss)) {
-            console.log("Endboss getroffen!");
-            this.level.endboss.hitBottleEndboss();
-            this.level.endboss.decreaseEnergyEndboss();
-            if (this.level.endboss.energyEndboss <= 0) {
-              console.log("Endboss ist tot!");
-              this.level.endboss.isDeadEndboss();
+          // Wenn this.level.endboss ein Array ist, iteriere darüber
+          this.level.endboss.forEach((endboss, endbossIndex) => {
+            if (throwableObject.isColliding(endboss)) {
+              console.log("Endboss getroffen!");
+              endboss.hitBottleEndboss();
+              endboss.decreaseEnergyEndboss();
+              if (endboss.energyEndboss <= 0) {
+                console.log("Endboss ist tot!");
+                endboss.isDeadEndboss();
+              }
+              // Entferne das Wurfobjekt aus dem Array
+              this.throwableObject.splice(throwableIndex, 1);
             }
-            this.throwableObject.splice(throwableIndex, 1);
-          }
+          });
         });
       }
+      
       
       
 
