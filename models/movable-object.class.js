@@ -11,14 +11,6 @@ class MovableObject extends DrawableObject {
     energyEndboss = 100;
     immune = false;
     lastHit = 0;
-
-    offset = {
-        top: 0,
-        bottom: 0,
-        left: 0,
-        right: 0,
-      };
-
     applyGravity() {
         setInterval(() => {
             if (this.isAboveGround() || this.speedY > 0)
@@ -52,6 +44,13 @@ class MovableObject extends DrawableObject {
       );
     }
 
+    offset = {
+      top: 0,
+      bottom: 0,
+      left: 0,
+      right: 0,
+    };
+
     hit(damage = 5) {
       if (!this.immune) {
           this.immune = true;
@@ -70,7 +69,6 @@ class MovableObject extends DrawableObject {
       }
   }
   
-
     addEnergyBottle() {
         this.energyBottle += 20;
         if (this.energyBottle > 100) {

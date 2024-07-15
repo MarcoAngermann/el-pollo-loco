@@ -37,7 +37,7 @@ class DrawableObject {
             this instanceof Coin || 
             this instanceof Bottle) {
             ctx.beginPath();
-            ctx.lineWidth = "3";
+            ctx.lineWidth = "1";
             ctx.strokeStyle = "blue";
             ctx.rect(
                 this.x + this.offset.left,

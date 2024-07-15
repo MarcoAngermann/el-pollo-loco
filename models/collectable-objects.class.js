@@ -37,7 +37,7 @@ class Coin extends MovableObject {
   class Bottle extends MovableObject {
     height = 90;
     width = 90;
-    y = 340;
+    y = 355;
     static lastBottleX = 320;
     offset = { top: 10, bottom: 10, left: 30, right: 10 };
     

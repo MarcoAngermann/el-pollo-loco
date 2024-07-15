@@ -1,7 +1,7 @@
 class smallChicken extends MovableObject {
-    height = 50;
-    width = 50;
-    y = 380;
+    height = 55;
+    width = 55;
+    y = 381;
     isDeadsmallChicken = false;
     offset = {
         left: 4,
@@ -28,7 +28,7 @@ class smallChicken extends MovableObject {
     }
 
     randomizePosition() {
-      this.x = 300 + Math.random() * 2500;
+      this.x = 300 + Math.random() * 2300;
      }
     animate() {
         setInterval(() => {

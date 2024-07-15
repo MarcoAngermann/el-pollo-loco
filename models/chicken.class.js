@@ -2,7 +2,7 @@
 class Chicken extends MovableObject {
 height = 80;
 width = 80;
-y = 355;
+y = 353;
 isDead = false;
 offset = {
     left: 5,
@@ -32,7 +32,7 @@ IMAGES_DEAD = [
     }
 
     randomizePosition() {
-      this.x = 300 + Math.random() * 2500;
+      this.x = 300 + Math.random() * 2300;
      }
     
     animate() {

@@ -9,7 +9,7 @@ class Endboss extends MovableObject {
   endbossImmune = false;
   energyEndboss = 100;
   otherDirection = false;
-    y = -35
+    y = -25
     height = 500
     width = 300
     offset = {
