@@ -24,6 +24,7 @@ IMAGES_DEAD = [
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_DEAD);
         this.x = 500 + Math.random() * 1800;
+        // this.x = 610;
         this.speed = 0.15 + Math.random() * 0.25;
         this.animate();
         this.randomizePosition();
@@ -32,7 +33,7 @@ IMAGES_DEAD = [
     }
 
     randomizePosition() {
-      this.x = 300 + Math.random() * 2300;
+      this.x = 300 + Math.random() * 2000;
      }
     
     animate() {

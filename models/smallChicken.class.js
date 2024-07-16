@@ -1,8 +1,8 @@
 class smallChicken extends MovableObject {
-    height = 55;
-    width = 55;
-    y = 381;
-    isDeadsmallChicken = false;
+    height = 50;
+    width = 50;
+    y = 380;
+    isDead = false;
     offset = {
         left: 4,
         top: 4,
@@ -22,13 +22,14 @@ class smallChicken extends MovableObject {
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_DEAD);
         this.x = 230 + Math.random() * 900;
+        // this.x = 610;
         this.speed = 0.15 + Math.random() * 0.25;
         this.animate();
         this.randomizePosition();
     }
 
     randomizePosition() {
-      this.x = 300 + Math.random() * 2300;
+      this.x = 300 + Math.random() * 2000;
      }
     animate() {
         setInterval(() => {
@@ -36,10 +37,10 @@ class smallChicken extends MovableObject {
         }, 1000 / 60);
     
         setInterval(() => {
-          if (this.isDeadsmallChicken === false) {
+          if (this.isDead === false) {
             this.playAnimation(this.IMAGES_WALKING);
           }
-          if (this.isDeadsmallChicken === true) {
+          if (this.isDead === true) {
             this.playAnimation(this.IMAGES_DEAD);
           }
         }, 200);

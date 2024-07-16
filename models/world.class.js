@@ -38,7 +38,6 @@ class World {
 
     run() {
         setInterval(() => {
-            this.checkCollisions();
             this.checkCollisionsCoins();
             this.checkCollisionsBottles();
             this.checkEndbossCollision();
@@ -46,6 +45,9 @@ class World {
             this.checkCollisionThrowableWithChicken();
             this.checkCollisionThrowableWithEndboss();
         }, 100);
+        setInterval(() => {
+            this.checkCollisions();
+        },10)
         this.startRefillTimer(); // Refill-Timer starten
     }
 
@@ -90,15 +92,15 @@ class World {
         this.throwableObject.forEach((throwableObject, throwableIndex) => {
           this.level.enemies.forEach((enemy, enemyIndex) => {
             if (throwableObject.isColliding(enemy)) {
-              if (!enemy.isDead || !enemy.isDeadsmallChicken) {
+              if (!enemy.isDead) {
                 enemy.isDead = true;
-                enemy.isDeadsmallChicken = true;
                 setTimeout(() => {
+                  this.level.enemies.splice(enemyIndex, 1);
                   this.playSoundChickendead = new Audio('audio/chickendead.mp3');
                   this.playSoundChickendead.play();
                   this.playSoundChickendead.volume = 0.2;
-                  this.level.enemies.splice(enemyIndex, 1);
-                }, 300);
+                  
+                }, 250);
               }
               this.throwableObject.splice(throwableIndex, 1);
             }
@@ -106,10 +108,13 @@ class World {
         });
       }
 
+    
+    
+    
+
       checkCollisionThrowableWithEndboss() {
         this.throwableObject.forEach((throwableObject, throwableIndex) => {
-          // Wenn this.level.endboss ein Array ist, iteriere darüber
-          this.level.endboss.forEach((endboss, endbossIndex) => {
+          this.level.endboss.forEach((endboss) => {
             if (throwableObject.isColliding(endboss)) {
               console.log("Endboss getroffen!");
               endboss.hitBottleEndboss();
@@ -124,18 +129,14 @@ class World {
           });
         });
       }
-      
-      
-      
-
+       
     checkCollisions() {
         this.level.enemies.forEach((enemy, enemyIndex) => {
             if (this.character.isColliding(enemy)) {
-                if(this.character.speedY < 0 && this.character.isAboveGround()) {
+                if(this.character.speedY < 0 && this.character.isAboveGround() && !enemy.isDead) {
                     this.character.speedY = 15;
                     this.character.x += 2; 
-                    enemy.isDead = true;
-                    enemy.isDeadsmallChicken = true;
+                    enemy.isDead = true;      
                     setTimeout(() => {
                         this.level.enemies.splice(enemyIndex, 1);
                         this.playSoundChickendead = new Audio('audio/chickendead.mp3');
@@ -143,8 +144,10 @@ class World {
                         this.playSoundChickendead.volume = 0.2;
                     }, 100);
                 } else {
-                    this.character.hit();
-                    this.statusBar.setPercentage(this.character.energy);
+                    if (!enemy.isDead) {
+                        this.character.hit();
+                        this.statusBar.setPercentage(this.character.energy);
+                    }
                 }
             }
         })

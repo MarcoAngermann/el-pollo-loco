@@ -16,7 +16,24 @@ h1 {
     font-family: 'mexico', sans-serif;
     font-size: 80px;
     color: #bf3d01;
-    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    text-shadow: 
+    -1px 2px 1px hsl(0, 0%, 0%), 
+    -2px 4px 1px hsl(0, 0%, 0%), 
+    -3px 6px 1px hsl(0, 0%, 0%), 
+    -4px 8px 1px hsl(0, 0%, 0%), 
+    -5px 10px 1px hsl(0, 0%, 0%), 
+    -6px 12px 1px hsl(0, 0%, 0%), 
+    -7px 14px 1px hsl(0, 0%, 0%), 
+    -8px 16px 1px hsl(0, 0%, 0%), 
+    -9px 18px 1px hsl(0, 0%, 0%), 
+    -10px 20px 1px hsl(0, 0%, 0%), 
+    -11px 22px 1px hsl(0, 0%, 0%), 
+    -12px 24px 1px hsl(0, 0%, 0%), 
+    -13px 26px 1px hsl(0, 0%, 0%), 
+    -14px 28px 1px hsl(0, 0%, 0%), 
+    -15px 30px 1px hsl(0, 0%, 9%), 
+    -16px 32px 1px hsl(0, 3%, 14%), 
+    -17px 34px 1px hsl(0, 3%, 17%)
 }
 
 @font-face {

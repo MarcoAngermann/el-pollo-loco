@@ -13,7 +13,7 @@ class Character extends MovableObject {
         left: 30,
         top: 140,
         right: 30,
-        bottom: 10,
+        bottom: 15,
     };
     IMAGES_WALKING = [
         'img/2_character_pepe/2_walk/W-21.png',
@@ -118,10 +118,13 @@ class Character extends MovableObject {
             } else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
             } else {
-                if (this.world.keyboard.LEFT || this.world.keyboard.RIGHT) {
+                if (this.world.keyboard.LEFT || this.world.keyboard.RIGHT || this.world.keyboard.A || this.world.keyboard.D) {
                     this.playAnimation(this.IMAGES_WALKING);
                     this.resetIdleTimer();
-                } else {
+                }else if (this.world.keyboard.E) {
+                    this.resetIdleTimer();
+                }
+                else {
                     this.checkIdleState();
                 }
             }
