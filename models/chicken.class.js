@@ -23,7 +23,7 @@ IMAGES_DEAD = [
         super().loadImage('img/3_enemies_chicken/chicken_normal/1_walk/2_w.png');
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_DEAD);
-        this.x = 500 + Math.random() * 1800;
+        this.x = 700 + Math.random() * 1800;
         // this.x = 610;
         this.speed = 0.15 + Math.random() * 0.25;
         this.animate();
@@ -33,7 +33,7 @@ IMAGES_DEAD = [
     }
 
     randomizePosition() {
-      this.x = 300 + Math.random() * 2000;
+      this.x = 650 + Math.random() * 1500;
      }
     
     animate() {
@@ -48,6 +48,6 @@ IMAGES_DEAD = [
           if (this.isDead === true) {
             this.playAnimation(this.IMAGES_DEAD);
           }
-        }, 200);
+        }, 100);
       }
     }

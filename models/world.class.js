@@ -39,13 +39,14 @@ class World {
     run() {
         setInterval(() => {
             this.checkCollisionsCoins();
-            this.checkCollisionsBottles();
+            
             this.checkEndbossCollision();
             this.checkThrowObjects();
             this.checkCollisionThrowableWithChicken();
             this.checkCollisionThrowableWithEndboss();
         }, 100);
         setInterval(() => {
+            this.checkCollisionsBottles();
             this.checkCollisions();
         },10)
         this.startRefillTimer(); // Refill-Timer starten
@@ -90,28 +91,35 @@ class World {
 
     checkCollisionThrowableWithChicken() {
         this.throwableObject.forEach((throwableObject, throwableIndex) => {
-          this.level.enemies.forEach((enemy, enemyIndex) => {
-            if (throwableObject.isColliding(enemy)) {
-              if (!enemy.isDead) {
-                enemy.isDead = true;
-                setTimeout(() => {
-                  this.level.enemies.splice(enemyIndex, 1);
-                  this.playSoundChickendead = new Audio('audio/chickendead.mp3');
-                  this.playSoundChickendead.play();
-                  this.playSoundChickendead.volume = 0.2;
-                  
-                }, 250);
-              }
-              this.throwableObject.splice(throwableIndex, 1);
-            }
-          });
+            this.level.enemies.forEach((enemy, enemyIndex) => {
+                if (throwableObject.isColliding(enemy, enemyIndex)) {
+                    if (!enemy.isDead) {
+                        enemy.isDead = true;
+                        setTimeout(() => {
+                            this.playSoundChickendead = new Audio('audio/chickendead.mp3');
+                            this.playSoundChickendead.play();
+                            this.playSoundChickendead.volume = 0.2;
+                            console.log(enemyIndex);
+                        }, 300);
+                    }
+                    this.throwableObject.splice(throwableIndex, 1);
+                    setTimeout(() => {
+                        this.level.enemies.splice(enemyIndex, 1);
+                        this.deleteKilledChicken();
+                    }, 600);
+                }
+            });
         });
-      }
+    }
 
+    deleteKilledChicken() {
+        this.level.enemies.forEach((enemy, enemyIndex) => {
+            if (enemy.isDead) {
+                this.level.enemies.splice(enemyIndex, 1);
+            }
+        });
+    }
     
-    
-    
-
       checkCollisionThrowableWithEndboss() {
         this.throwableObject.forEach((throwableObject, throwableIndex) => {
           this.level.endboss.forEach((endboss) => {
@@ -123,7 +131,6 @@ class World {
                 console.log("Endboss ist tot!");
                 endboss.isDeadEndboss();
               }
-              // Entferne das Wurfobjekt aus dem Array
               this.throwableObject.splice(throwableIndex, 1);
             }
           });

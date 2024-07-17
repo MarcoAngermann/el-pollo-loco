@@ -31,10 +31,7 @@ class MovableObject extends DrawableObject {
     isColliding(mo) {
   
     
-      if (!mo.offset) {
-        console.error("Das andere Objekt (mo) hat kein Offset: ", mo);
-        return false;
-      }
+ 
     
       return (
         this.x + this.width - this.offset.right > mo.x + mo.offset.left &&
