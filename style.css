@@ -10,7 +10,6 @@ body {
   }
   canvas {
     background-color: black;
-    /* border-radius: 10px; */
     display: block;
     width: 100%;
     position: absolute;
@@ -97,8 +96,6 @@ h1 {
     max-width: 720px;
   }
 
-
-  
   .hide {
     display: none !important;
   }
@@ -128,9 +125,10 @@ h1 {
     border-radius: 5px;
     padding: 5px 10px;
     bottom: 10px;
-    background-color: rgb(255, 166, 0);
+    background-color: #bf3d01;
     left: 10px;
-    border: 1px solid black;
+    border: 1px solid rgb(255, 255, 255);
+    color: white;
   }
   
   .instruction {
@@ -179,7 +177,7 @@ h1 {
   }
   
   .btn-mobile {
-    background: orange;
+    background: #bf3d01;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
     border: solid;
@@ -190,7 +188,7 @@ h1 {
   }
   
   .btn-mobile-bottle {
-    background: orange;
+    background: #bf3d01;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
     border: solid;
@@ -230,7 +228,7 @@ h1 {
   }
   
   h3 {
-    font-family: "Rye";
+    font-family: 'mexico';
     line-height: 0;
   }
   .game-container {
@@ -282,6 +280,7 @@ h1 {
     height: 100%;
     object-fit: inherit;
     opacity: 0.9;
+    border-radius: 10px;
   }
   
   .btn-flex {
@@ -301,7 +300,7 @@ h1 {
   .btn {
     display: flex;
     cursor: pointer;
-    background: orange;
+    background: #bf3d01;
     border-radius: 5px;
     width: 45px;
     align-items: center;
@@ -328,6 +327,7 @@ h1 {
     filter: opacity(1);
   }
   .startscreen-wrapper-img {
+    border-radius: 10px;
     position: relative;
     width: 100%;
     max-width: 720px;
@@ -338,7 +338,7 @@ h1 {
   h4 {
     font-size: 32px;
     font-family: 'mexico';
-    color: orange;
+    color: #bf3d01;
   }
   
   .startscreen-img-img {
@@ -398,16 +398,17 @@ h1 {
   }
   
   button {
-    width: 220px;
+    width: 200px;
     height: 60px;
     z-index: 1;
     border: none;
-    border-radius: 5px;
-    background: orange;
+    border-radius: 10px;
+    background: #bf3d01;
     font-size: 25px;
     font-family: 'mexico';
     cursor: pointer;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    color: white;
   }
   
   button:hover {

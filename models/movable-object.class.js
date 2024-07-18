@@ -44,7 +44,7 @@ class MovableObject extends DrawableObject {
       right: 0,
     };
 
-    hit(damage = 5) {
+    hit(damage = 10) {
       if (!this.immune) {
           this.immune = true;
           this.playSoundHurt = new Audio('audio/hurt.mp3');
