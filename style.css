@@ -1,18 +1,28 @@
 body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
     margin: 0;
     background-image: url('img/background2.png');
-    background-size: cover;
-    background-position: center;
+    background-position: left center;
+    height: 100vh;
     background-repeat: no-repeat;
-    background-attachment: fixed;
-}
+    background-size: cover;
+    backdrop-filter: brightness(0.5);
+    position: relative;
+  }
+  canvas {
+    background-color: black;
+    /* border-radius: 10px; */
+    display: block;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    z-index: -1;
+  }
 
 h1 {
+    font-size: 50px;
+    text-align: center;
+    padding: 60px 0;
+    margin: 0;
     font-family: 'mexico', sans-serif;
     font-size: 80px;
     color: #bf3d01;
@@ -41,10 +51,6 @@ h1 {
     src: url('fonts/mexico.ttf') format('truetype');
 }
 
-canvas {
-    background-color: black;
-    display: block;
-}
 
 @media only screen and (max-width: 720px) {
     canvas {
@@ -57,3 +63,413 @@ canvas {
         height: 100vh;
     }
 }
+
+.d-none {
+    display: none;
+}
+
+.startscreen-div {
+    max-width: 720px;
+    height: 480px;
+    top: 0;
+    z-index: 8;
+    background: #00000087;
+}
+
+.button-final {
+    margin-top: 30px;
+  }
+
+  .startscreen-img-1-img-win {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    object-fit: inherit;
+    opacity: 0.9;
+  }
+
+  .btn-container-restart {
+    display: flex;
+    justify-content: space-around;
+    max-width: 720px;
+  }
+
+
+  
+  .hide {
+    display: none !important;
+  }
+  
+  .loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+    align-items: center;
+    background: white;
+    justify-content: center;
+    height: -webkit-fill-available;
+  }
+  
+  .instructions-flex {
+    position: absolute;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 10px;
+    z-index: 100;
+    font-family: 'mexico';
+    font-size: 14px;
+    border-radius: 5px;
+    padding: 5px 10px;
+    bottom: 10px;
+    background-color: rgb(255, 166, 0);
+    left: 10px;
+    border: 1px solid black;
+  }
+  
+  .instruction {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: center;
+  }
+  
+  .space {
+    height: 20px;
+  }
+  
+  .left-arrow {
+    height: 20px;
+  }
+  
+  .right-arrow {
+    height: 20px;
+  }
+  
+  .d-button {
+    height: 20px;
+  }
+  
+  .loader {
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+  }
+  
+  .btn-mobile-wrapper {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+  }
+  
+  .btn-mobile-flex {
+    padding: 0 20px 0 20px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .btn-mobile-wrapper {
+    bottom: 40px;
+    position: absolute;
+  }
+  
+  .btn-mobile {
+    background: orange;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    border: solid;
+    padding: 10px;
+    margin-bottom: 10px;
+    width: 30px;
+    height: auto;
+  }
+  
+  .btn-mobile-bottle {
+    background: orange;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    border: solid;
+    margin-bottom: 10px;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+  }
+  
+  .btn-mobile img {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .overlayMobile {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    display: flex;
+    z-index: 150;
+    background-color: #cacaca;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .turnScreenBox {
+    font-family: 'mexico';
+    font-size: 30px;
+  }
+  .turnScreenBox img {
+    width: 250px;
+    height: auto;
+  }
+  .background {
+    overflow: hidden;
+  }
+  
+  h3 {
+    font-family: "Rye";
+    line-height: 0;
+  }
+  .game-container {
+    position: relative;
+    margin: auto;
+    max-width: 720px;
+    height: 480px;
+  }
+  
+  .col-1 {
+    width: 50%;
+  }
+  
+  .flex-container {
+    display: flex;
+    justify-content: space-around;
+    position: absolute;
+    align-items: center;
+    top: 0;
+    max-width: 720px;
+    width: -webkit-fill-available;
+    margin-top: 30px;
+  }
+  .startscreen-div {
+    max-width: 720px;
+    height: 480px;
+    top: 0;
+    z-index: 8;
+    background: #00000087;
+  }
+  
+  h2 {
+    font-family: 'mexico';
+    margin: 0;
+    padding-right: 10px;
+    border-right: 1px solid black;
+  }
+  
+  .button-final {
+    margin-top: 30px;
+  }
+  
+  .startscreen-img-1-img-win {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    object-fit: inherit;
+    opacity: 0.9;
+  }
+  
+  .btn-flex {
+    display: flex;
+    gap: 12px;
+    margin: 10px 20px;
+  }
+  
+  .btn-container {
+    display: flex;
+    justify-content: end;
+    position: absolute;
+    z-index: 20;
+    width: 100%;
+  }
+  
+  .btn {
+    display: flex;
+    cursor: pointer;
+    background: orange;
+    border-radius: 5px;
+    width: 45px;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    top: 30px;
+    right: 30px;
+  }
+  
+  .btn-container-restart {
+    display: flex;
+    justify-content: space-around;
+    max-width: 720px;
+  }
+  
+  .btn img {
+    width: 40px;
+    height: auto;
+    filter: opacity(1.5);
+  }
+  
+  .btn img:hover {
+    filter: opacity(1);
+  }
+  .startscreen-wrapper-img {
+    position: relative;
+    width: 100%;
+    max-width: 720px;
+    height: 480px;
+    overflow: hidden;
+  }
+  
+  h4 {
+    font-size: 32px;
+    font-family: 'mexico';
+    color: orange;
+  }
+  
+  .startscreen-img-img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    object-fit: inherit;
+  }
+  
+  .d-none {
+    display: none !important;
+  }
+  
+  .close-div {
+    position: relative;
+  }
+  
+  .imprint-div {
+    background: #cacaca;
+    font-family: "Inter", sans-serif;
+    width: 70%;
+    margin: auto;
+    padding: 50px;
+  }
+  
+  img.btn-close {
+    height: auto;
+    position: absolute;
+    top: -19px;
+    left: 55%;
+    transform: translate(-50%, -50%);
+    background: #cacaca;
+    width: 40px;
+    z-index: 99;
+    cursor: pointer;
+    border-radius: 10px 10px 0px 0px;
+  }
+  
+  img.btn-close-second {
+    height: auto;
+    position: absolute;
+    top: -19px;
+    left: 45%;
+    transform: translate(-50%, -50%);
+    background: #cacaca;
+    width: 40px;
+    z-index: 79;
+    cursor: pointer;
+    border-radius: 10px 10px 0px 0px;
+  }
+  
+  img.btn-close-active {
+    background-color: orange;
+  }
+  
+  button {
+    width: 220px;
+    height: 60px;
+    z-index: 1;
+    border: none;
+    border-radius: 5px;
+    background: orange;
+    font-size: 25px;
+    font-family: 'mexico';
+    cursor: pointer;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  button:hover {
+    background: rgb(255, 111, 0);
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  .btn-mobile-wrapper-800 {
+    display: flex !important;
+  }
+    
+  #muteIcon {
+    width: 40px;
+    height: auto;
+    filter: opacity(0.6);
+  }
+
+  @media (max-width: 1024px) and (orientation: landscape) {
+    .overlayMobile {
+      display: none;
+    }
+    .btn-mobile-wrapper {
+      display: none;
+    }
+  }
+  
+  @media (max-width: 1024px) and (orientation: landscape) and (max-height: 600px) {
+    h1 {
+      display: none;
+    }
+  }
+  
+  @media (max-width: 720px) {
+    h1 {
+      display: none;
+    }
+  }
+  
+  @media (min-width: 800px) {
+    .overlayMobile {
+      display: none;
+    }
+  }
+  
+  @media only screen and (max-height: 600px) {
+    .flex-container,
+    canvas {
+      width: 100%;
+    }
+    .startscreen-img-img {
+      transform: translate(-50%, -60%);
+    }
+  }
+  
+  @media only screen and (max-height: 480px) {
+    .game-container,
+    .flex-container,
+    canvas {
+      max-width: 720px;
+      max-height: -webkit-fill-available;
+    }
+    .game-container {
+      overflow: hidden;
+    }
+  }

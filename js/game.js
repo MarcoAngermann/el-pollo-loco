@@ -3,13 +3,22 @@ let ctx;
 let world;
 let keyboard = new Keyboard();
 
-function init() {
+function startGame() {
+    closeStartScreen();
+    // loadingScreen();
+    initLevel();
     canvas = document.getElementById('canvas');
+    // playBackgroundMusic();
     world = new World(canvas, keyboard);
+  }
+
+// function init() {
+//     canvas = document.getElementById('canvas');
+//     world = new World(canvas, keyboard);
     
     
-    console.log('My Character is',world.character);
-}
+//     console.log('My Character is',world.character);
+// }
 
 window.addEventListener('keydown', (event) => {
     if(event.keyCode == 39 || event.keyCode == 68) {
@@ -69,3 +78,40 @@ function enterFullScreen(element) {
         element.mozRequestFullScreen();
     }
 }
+
+function winGame() {
+    document.getElementById("winGameScreen").classList.remove('d-none');
+    stopGame();
+    // backgroundMusic.pause();
+    document.getElementById("btn-mobile-wrapper").classList.remove("btn-mobile-wrapper-800");
+}
+
+function stopGame() {
+    for (let i = 1; i < 9999; i++) {
+      window.clearInterval(i);
+    }
+}
+
+function restartGame() {
+    world = new World(canvas, keyboard);
+    document.getElementById("gameOverScreen").classList.add('d-none');
+    document.getElementById("winGameScreen").classList.add('d-none');
+    document.getElementById("canvas").classList.remove('d-none');
+    closeStartScreen();
+    startGame();
+}
+
+function gameOver() {
+    document.getElementById("gameOverScreen").classList.remove('d-none');
+    stopGame();
+    backgroundMusic.pause();
+    document.getElementById("btn-mobile-wrapper").classList.remove("btn-mobile-wrapper-800");
+}
+
+function closeStartScreen() {
+    document.getElementById('startScreen').classList.add('d-none');
+    document.getElementById('gameOverScreen').classList.add('d-none');
+    document.getElementById('canvas').classList.remove('d-none');
+    // document.getElementById("btn-mobile-wrapper").classList.add("btn-mobile-wrapper-800")
+  }
+

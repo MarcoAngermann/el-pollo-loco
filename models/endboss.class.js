@@ -193,13 +193,13 @@ updateCharacter() {
   }
 }
 
-// checkIfCharacterIsDead() {
-//   this.playAnimation(this.IMAGES_DEAD);
-//   if (!masterSound) {
-//     this.endbossdead_sound.play().volume = 0.1;
-//   }
-//   setTimeout(() => {
-//     winGame();
-//   }, 700);
-// }
+checkIfCharacterIsDead() {
+  if (this.isDead) {
+    this.playAnimation(this.IMAGES_DEAD);
+  }
+  setTimeout(() => {
+    winGame();
+  }, 700);
+}
+
 }

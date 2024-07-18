@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EL POLLO LOCO</title>
-    <link rel="icon" type="image/x-icon" href="/el-pollo-loco/img/mexican-hat.png">
+    <link rel="icon" type="image/x-icon" href="img/mexican-hat.png">
     <link rel="stylesheet" href="style.css">
     <script src="models/drawable-object.class.js"></script>
     <script src="models/movable-object.class.js"></script>
@@ -23,15 +23,110 @@
     <script src="models/throwable-objects.class.js"></script>
     <script src="js/game.js"></script>
 </head>
-<body onload="init()">
+<body onload="initLevel()">
+    <div class="overlayMobile">
+        <div class="turnScreenBox" id="turnScreen">
+          <img
+            class="turnScreenIcon"
+            src="./img/12_icons/turn-device.png"
+            alt=""
+          />
+          <p>Please rotate your device into landscape mode</p>
+        </div>
+      </div>
+      <h1>El Pollo Loco</h1>
+      <div class="game-container">
+        <div id="loadingScreen" class="loader-container hide">
+          <h4>Loading chicken...</h4>
+          <img
+            src="img/3_enemies_chicken/chicken_small/Muestra gif.gif"
+            alt="Loading..."
+            class="chicken-walking"
+          />
+        </div>
+    <div id="startScreen" class="startscreen-div">
+        <div class="startscreen-img">
+          <div class="startscreen-wrapper-img">
+            <img
+              src="img/9_intro_outro_screens/start/startscreen_1.png"
+              alt=""
+              class="startscreen-img-img"
+            />
+          </div>
+          <div class="instructions-flex">
+            <h2>Instructions</h2>
+            <div class="instruction">
+              Move Left<img
+                src="./img/12_icons/left_arrow.png"
+                alt=""
+                class="left-arrow"
+              />
+            </div>
+            <div class="instruction">
+              Move Right<img
+                src="./img/12_icons/right_arrow.png"
+                alt=""
+                class="right-arrow"
+              />
+            </div>
+            <div class="instruction">
+              Attack<img
+                src="./img/12_icons/d_button.png"
+                alt=""
+                class="d-button"
+              />
+            </div>
+            <div class="instruction">
+              Jump<img src="./img/12_icons/space.png" alt="" class="space" />
+            </div>
+          </div>
+          <div class="flex-container">
+            <button onclick="startGame()">Start Game</button>
+          </div>
+        </div>
+      </div>
+      <div id="mute" class="btn btn-mute" onclick="toggleMute()">
+        <img id="muteIcon" src="./img/12_icons/sound_off.svg" alt="" />
+      </div>
+      <div id="winGameScreen" class="startscreen-div d-none">
+        <div class="btn-container-restart">
+          <button onclick="backToMenu()" class="button-final">
+            Back to Menu
+          </button>
+          <button onclick="restartGame()" class="button-final">Restart</button>
+        </div>
+        <img
+          src="img/9_intro_outro_screens/game_over/game over!.png"
+          alt=""
+          class="startscreen-img-1-img-win"
+        />
+      </div>
+      <div id="gameOverScreen" class="startscreen-div d-none">
+        <div class="startscreen-img-1">
+          <div class="btn-container-restart">
+            <button onclick="backToMenu()" class="button-final">
+              Back to Menu
+            </button>
+            <button onclick="restartGame()" class="button-final">
+              Restart
+            </button>
+          </div>
+          <img
+            src="img/9_intro_outro_screens/game_over/oh no you lost!.png"
+            alt=""
+            class="startscreen-img-1-img-win"
+          />
+        </div>
+      </div>
+      <div>
+        <button onclick="fullScreen()">Fullscreen</button>
+      </div>
+      <div id="fullScreen">
+      <canvas class="d-none" style="border-radius: 25px; box-shadow: 10px 20px 15px black" width="720px" height="480px" id="canvas">
+      </canvas>
+      </div>
 
-    <h1>EL POLLO LOCO</h1>
-    <div id="fullScreen">
-    <canvas style="border-radius: 25px; box-shadow: 10px 20px 15px black" width="720px" height="480px" id="canvas">
-    </canvas>
-    <button onclick="fullScreen()">Fullscreen</button>
-    </div>
-   
-    
+
+
 </body>
 </html>

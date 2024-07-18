@@ -39,7 +39,6 @@ class World {
     run() {
         setInterval(() => {
             this.checkCollisionsCoins();
-            
             this.checkEndbossCollision();
             this.checkThrowObjects();
             this.checkCollisionThrowableWithChicken();
