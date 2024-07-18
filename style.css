@@ -257,6 +257,9 @@ h1 {
     top: 0;
     z-index: 8;
     background: #00000087;
+    border-radius: 25px;
+    position: absolute;
+    width: 100%;
   }
   
   h2 {
@@ -326,7 +329,7 @@ h1 {
     filter: opacity(1);
   }
   .startscreen-wrapper-img {
-    border-radius: 10px;
+    border-radius: 25px;
     position: relative;
     width: 100%;
     max-width: 720px;
