@@ -5,20 +5,12 @@ let keyboard = new Keyboard();
 
 function startGame() {
     closeStartScreen();
-    // loadingScreen();
+    loadingScreen();
     initLevel();
     canvas = document.getElementById('canvas');
     // playBackgroundMusic();
     world = new World(canvas, keyboard);
   }
-
-// function init() {
-//     canvas = document.getElementById('canvas');
-//     world = new World(canvas, keyboard);
-    
-    
-//     console.log('My Character is',world.character);
-// }
 
 window.addEventListener('keydown', (event) => {
     if(event.keyCode == 39 || event.keyCode == 68) {
@@ -66,6 +58,13 @@ function fullScreen() {
     let canvas = document.getElementById('canvas');
     enterFullScreen(canvas);
 }
+
+async function loadingScreen() {
+    document.getElementById('loadingScreen').classList.remove('hide');
+    setTimeout(() => {
+      document.getElementById('loadingScreen').classList.add('hide');
+    }, 800);
+  }
 
 function enterFullScreen(element) {
     if (element.requestFullscreen) {

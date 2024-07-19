@@ -161,7 +161,6 @@ class World {
 
     checkCollisionsCoins() {
         const totalCoins = 10;
-        console.log('Initial energyCoin:', this.character.energyCoin);
         this.level.coins.forEach((coin) => {
             if (this.character.isColliding(coin)) {
                 this.level.coins.splice(this.level.coins.indexOf(coin), 1);
@@ -262,6 +261,19 @@ class World {
             this.statusBar.setPercentage(this.character.energy);
           }
         });
+      }
+
+      checkCharacterPositionEndboss() {
+        const endboss = this.level.endboss[0];
+        if (endboss && !endboss.isDead) {
+          if (this.character.x > endboss.x + endboss.width) {
+            endboss.otherDirection = true;
+            endboss.moveLeft();
+          } else if (this.character.x < endboss.x + 100) {
+            endboss.otherDirection = false;
+            endboss.moveRight();
+          }
+        }
       }
 }
 

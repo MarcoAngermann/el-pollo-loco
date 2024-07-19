@@ -80,8 +80,8 @@ constructor() {
     this.loadImages(this.IMAGES_ATTACK);
     this.loadImages(this.IMAGES_HURT);
     this.loadImages(this.IMAGES_ALERT);
+    this.moveLeftAngry = false;
     this.x = 2300;
-    this.speed = 0.15 + Math.random() * 0.5;
     this.animate();
     
 }
