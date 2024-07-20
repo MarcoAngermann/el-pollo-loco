@@ -1,6 +1,6 @@
 class Endboss extends MovableObject {
-  speedIfAngry = 2;
-  speed = 0.15;
+  speedIfAngry = 5;
+  speed = 1.5;
   isDead = false;
   inDamage = false;
   isAlert = false;
@@ -8,7 +8,7 @@ class Endboss extends MovableObject {
   aggressive = false;
   endbossImmune = false;
   energyEndboss = 100;
-  otherDirection = false;
+  
     y = -25
     height = 500
     width = 300
@@ -81,6 +81,7 @@ constructor() {
     this.loadImages(this.IMAGES_HURT);
     this.loadImages(this.IMAGES_ALERT);
     this.moveLeftAngry = false;
+    this.otherDirection = false; // Zum Beispiel, wenn du den Endboss nach links bewegen möchtest
     this.x = 2300;
     this.animate();
     
@@ -114,11 +115,11 @@ checkAngryEndboss() {
   if (this.energyEndboss <= 20) {
     this.isAlert = true;
     this.moveLeftAngry = false;
-    setTimeout(() => {
-      if (!masterSound) {
-        this.alert_sound.play();
-      }
-    }, 10);
+    // // setTimeout(() => {
+    // //   if (!masterSound) {
+    // //     this.alert_sound.play();
+    // //   }
+    // }, 10);
     setTimeout(() => {
       this.isAlert = false;
       this.moveLeftAngry = true;
@@ -127,15 +128,26 @@ checkAngryEndboss() {
   }
 }
 
+moveLeft() {
+  console.error('Moving left with speed:', this.speed);
+  this.x -= this.speed;
+}
 
+moveRight() {
+  console.log('Moving right with speed:', this.speed);
+  this.x += this.speed;
+}
 
 moveLeftIfEndbossIsAngry() {
+  console.log('Moving left angrily with speed:', this.speedIfAngry);
   this.x -= this.speedIfAngry;
 }
 
 moveRightIfEndbossIsAngry() {
+  console.log('Moving right angrily with speed:', this.speedIfAngry);
   this.x += this.speedIfAngry;
 }
+
 
 
 isDeadEndboss() {
@@ -145,9 +157,34 @@ isDeadEndboss() {
 }
 
 animate() {
+
   this.setMovementInterval();
   this.setupEndbossInterval();
 }
+
+// setMovementInterval() {
+//   setInterval(() => {
+//     if (this.world && this.world.endbossInRange) {
+//       if (this.isAlert) {
+//         this.speed = 0;
+//         return;
+//       }
+//       if (this.moveLeftAngry) {
+//         if (this.otherDirection) {
+//           this.moveRightIfEndbossIsAngry();
+//         } else {
+//           this.moveLeftIfEndbossIsAngry();
+//         }
+//       } else {
+//         if (this.otherDirection) {
+//           this.moveRight();
+//         } else {
+//           this.moveLeft();
+//         }
+//       }
+//     }
+//   }, 1000 / 60);
+// }
 
 setMovementInterval() {
   setInterval(() => {
@@ -173,6 +210,8 @@ setMovementInterval() {
   }, 1000 / 60);
 }
 
+
+
 setupEndbossInterval() {
   setInterval(() => {
     this.updateCharacter();
@@ -196,6 +235,7 @@ updateCharacter() {
 checkIfCharacterIsDead() {
   if (this.isDead) {
     this.playAnimation(this.IMAGES_DEAD);
+    
   }
   setTimeout(() => {
     winGame();

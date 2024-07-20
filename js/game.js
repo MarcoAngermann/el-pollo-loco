@@ -82,7 +82,7 @@ function winGame() {
     document.getElementById("winGameScreen").classList.remove('d-none');
     stopGame();
     // backgroundMusic.pause();
-    document.getElementById("btn-mobile-wrapper").classList.remove("btn-mobile-wrapper-800");
+    // document.getElementById("btn-mobile-wrapper").classList.remove("btn-mobile-wrapper-800");
 }
 
 function stopGame() {
@@ -104,7 +104,7 @@ function gameOver() {
     document.getElementById("gameOverScreen").classList.remove('d-none');
     stopGame();
     backgroundMusic.pause();
-    document.getElementById("btn-mobile-wrapper").classList.remove("btn-mobile-wrapper-800");
+    // document.getElementById("btn-mobile-wrapper").classList.remove("btn-mobile-wrapper-800");
 }
 
 function closeStartScreen() {

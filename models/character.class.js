@@ -113,6 +113,9 @@ class Character extends MovableObject {
             this.world.camera_x = -this.x + 100;
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
+                setTimeout(() => {
+                    gameOver();
+                }, 700);
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
             } else if (this.isAboveGround()) {

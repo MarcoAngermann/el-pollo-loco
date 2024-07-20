@@ -30,10 +30,51 @@ class World {
         this.setWorld();
         this.run();
         this.canThrow = true; 
+        this.checkCharacterPositionEndboss();
+        this.checkEndbossRange();
+    }
+
+    checkEndbossRange() {
+        setInterval(() => {
+            const distance = this.endboss.x - this.character.x;
+            if (distance < 500) {  // Beispielwert, abhängig von deiner Spielwelt
+                this.endbossInRange = true;
+            } else {
+                this.endbossInRange = false;
+            }
+        }, 1000 / 60);
+    }
+
+    checkCharacterPositionEndboss() {
+        const endboss = this.level.endboss[0];
+        if (endboss && !endboss.isDead) {
+            const distanceToEndboss = Math.abs(this.character.x - endboss.x);
+            if (distanceToEndboss < 500) { // Beispielabstand, an dem der Endboss aktiviert wird
+                this.endbossInRange = true;
+                endboss.aggressive = true; // Endboss wird aggressiv, wenn der Charakter in der Nähe ist
+                endboss.otherDirection = this.character.x < endboss.x; // Setze die Richtung
+            } else {
+                this.endbossInRange = false;
+                endboss.aggressive = false; // Endboss wird nicht aggressiv, wenn der Charakter zu weit weg ist
+            }
+        }
+    }
+
+    update() {
+        // Berechnung der Entfernung zwischen Spieler und Endboss
+        let distanceToEndboss = Math.abs(this.character.x - this.endboss.x);
+        
+        // Setze endbossInRange basierend auf der Entfernung
+        if (distanceToEndboss < 500) { // Beispielabstand, an dem der Endboss aktiviert wird
+            this.endbossInRange = true;
+        } else {
+            this.endbossInRange = false;
+        }
     }
 
     setWorld() {
         this.character.world = this;
+        this.endboss.world = this;
     }
 
     run() {
@@ -43,6 +84,7 @@ class World {
             this.checkThrowObjects();
             this.checkCollisionThrowableWithChicken();
             this.checkCollisionThrowableWithEndboss();
+            this.checkCharacterPositionEndboss();
         }, 100);
         setInterval(() => {
             this.checkCollisionsBottles();
@@ -255,7 +297,7 @@ class World {
     checkEndbossCollision() {
         this.level.endboss.forEach((endboss) => {
           if (this.character.isColliding(endboss)) {
-            let endbossDamage = 20;
+            let endbossDamage = 50;
             this.character.hit(endbossDamage);
             console.log('Character hit', this.character.energy);
             this.statusBar.setPercentage(this.character.energy);
@@ -268,10 +310,10 @@ class World {
         if (endboss && !endboss.isDead) {
           if (this.character.x > endboss.x + endboss.width) {
             endboss.otherDirection = true;
-            endboss.moveLeft();
-          } else if (this.character.x < endboss.x + 100) {
-            endboss.otherDirection = false;
             endboss.moveRight();
+          } else if (this.character.x > endboss.x - 1000) {
+            // endboss.otherDirection = false;
+            endboss.moveLeft();
           }
         }
       }
