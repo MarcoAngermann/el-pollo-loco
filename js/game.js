@@ -112,5 +112,14 @@ function closeStartScreen() {
     document.getElementById('gameOverScreen').classList.add('d-none');
     document.getElementById('canvas').classList.remove('d-none');
     // document.getElementById("btn-mobile-wrapper").classList.add("btn-mobile-wrapper-800")
+}
+
+function backToMenu() {
+    document.getElementById('startScreen').classList.remove('d-none');
+    document.getElementById("gameOverScreen").classList.add('d-none');
+    document.getElementById("winGameScreen").classList.add('d-none');
+    document.getElementById("canvas").classList.remove('d-none');
+    document.getElementById("btn-mobile-wrapper").style.display = "none";
+    // playBackgroundMusic();
   }
 
