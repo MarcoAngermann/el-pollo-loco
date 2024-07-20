@@ -92,7 +92,6 @@ function stopGame() {
 }
 
 function restartGame() {
-    world = new World(canvas, keyboard);
     document.getElementById("gameOverScreen").classList.add('d-none');
     document.getElementById("winGameScreen").classList.add('d-none');
     document.getElementById("canvas").classList.remove('d-none');
@@ -103,7 +102,7 @@ function restartGame() {
 function gameOver() {
     document.getElementById("gameOverScreen").classList.remove('d-none');
     stopGame();
-    backgroundMusic.pause();
+    // backgroundMusic.pause();
     // document.getElementById("btn-mobile-wrapper").classList.remove("btn-mobile-wrapper-800");
 }
 

@@ -113,9 +113,7 @@ class Character extends MovableObject {
             this.world.camera_x = -this.x + 100;
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
-                setTimeout(() => {
-                    gameOver();
-                }, 700);
+                this.gameOverTime();
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
             } else if (this.isAboveGround()) {
@@ -132,6 +130,12 @@ class Character extends MovableObject {
                 }
             }
         }, 1000 / 60);
+    }
+
+    gameOverTime() {
+        setTimeout(() => {
+        gameOver();
+     }, 700);
     }
 
     checkIdleState() {
