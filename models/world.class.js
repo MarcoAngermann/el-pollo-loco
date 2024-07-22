@@ -37,7 +37,7 @@ class World {
     checkEndbossRange() {
         setInterval(() => {
             const distance = this.endboss.x - this.character.x;
-            if (distance < 500) {  // Beispielwert, abhängig von deiner Spielwelt
+            if (distance < 200) {
                 this.endbossInRange = true;
             } else {
                 this.endbossInRange = false;
@@ -49,7 +49,7 @@ class World {
         const endboss = this.level.endboss[0];
         if (endboss && !endboss.isDead) {
             const distanceToEndboss = Math.abs(this.character.x - endboss.x);
-            if (distanceToEndboss < 500) { // Beispielabstand, an dem der Endboss aktiviert wird
+            if (distanceToEndboss < 200) { // Beispielabstand, an dem der Endboss aktiviert wird
                 this.endbossInRange = true;
                 endboss.aggressive = true; // Endboss wird aggressiv, wenn der Charakter in der Nähe ist
                 endboss.otherDirection = this.character.x < endboss.x; // Setze die Richtung
@@ -65,7 +65,7 @@ class World {
         let distanceToEndboss = Math.abs(this.character.x - this.endboss.x);
         
         // Setze endbossInRange basierend auf der Entfernung
-        if (distanceToEndboss < 500) { // Beispielabstand, an dem der Endboss aktiviert wird
+        if (distanceToEndboss < 200) { // Beispielabstand, an dem der Endboss aktiviert wird
             this.endbossInRange = true;
         } else {
             this.endbossInRange = false;
@@ -297,7 +297,7 @@ class World {
     checkEndbossCollision() {
         this.level.endboss.forEach((endboss) => {
           if (this.character.isColliding(endboss)) {
-            let endbossDamage = 15;
+            let endbossDamage = 25;
             this.character.hit(endbossDamage);
             console.log('Character hit', this.character.energy);
             this.statusBar.setPercentage(this.character.energy);

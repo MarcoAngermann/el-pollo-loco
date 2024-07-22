@@ -1,6 +1,6 @@
 class Endboss extends MovableObject {
-  speedIfAngry = 5;
-  speed = 1.5;
+  speedIfAngry = 30;
+  speed = 5;
   isDead = false;
   inDamage = false;
   isAlert = false;
@@ -97,7 +97,7 @@ decreaseEnergyEndboss() {
   if (!this.endbossImmune) {
     this.endbossImmune = true;
     this.energyEndboss -= 21;
-    this.speed += 0.3;
+    this.speed += 3;
     if (this.energyEndboss < 0) {
       this.energyEndboss = 0;
       this.isDeadEndboss();
