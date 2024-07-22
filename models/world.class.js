@@ -297,26 +297,33 @@ class World {
     checkEndbossCollision() {
         this.level.endboss.forEach((endboss) => {
           if (this.character.isColliding(endboss)) {
-            let endbossDamage = 50;
+            let endbossDamage = 15;
             this.character.hit(endbossDamage);
             console.log('Character hit', this.character.energy);
             this.statusBar.setPercentage(this.character.energy);
           }
         });
-      }
-
-      checkCharacterPositionEndboss() {
+      }  
+      
+    checkCharacterPositionEndboss() {
         const endboss = this.level.endboss[0];
         if (endboss && !endboss.isDead) {
-          if (this.character.x > endboss.x + endboss.width) {
-            endboss.otherDirection = true;
-            endboss.moveRight();
-          } else if (this.character.x > endboss.x - 1000) {
-            // endboss.otherDirection = false;
-            endboss.moveLeft();
-          }
+            const characterX = this.character.x;
+            const endbossX = endboss.x;
+    
+            if (characterX > endbossX) {
+                // Charakter ist rechts vom Endboss
+                endboss.otherDirection = false;
+                endboss.moveRight();
+            } else if (characterX < endbossX) {
+                // Charakter ist links vom Endboss
+                endboss.otherDirection = true;
+                endboss.moveLeft();
+            }
         }
-      }
+    }
+    
+        
 }
 
 

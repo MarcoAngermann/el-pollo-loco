@@ -128,16 +128,6 @@ checkAngryEndboss() {
   }
 }
 
-moveLeft() {
-  console.error('Moving left with speed:', this.speed);
-  this.x -= this.speed;
-}
-
-moveRight() {
-  console.log('Moving right with speed:', this.speed);
-  this.x += this.speed;
-}
-
 moveLeftIfEndbossIsAngry() {
   console.log('Moving left angrily with speed:', this.speedIfAngry);
   this.x -= this.speedIfAngry;
@@ -161,30 +151,6 @@ animate() {
   this.setMovementInterval();
   this.setupEndbossInterval();
 }
-
-// setMovementInterval() {
-//   setInterval(() => {
-//     if (this.world && this.world.endbossInRange) {
-//       if (this.isAlert) {
-//         this.speed = 0;
-//         return;
-//       }
-//       if (this.moveLeftAngry) {
-//         if (this.otherDirection) {
-//           this.moveRightIfEndbossIsAngry();
-//         } else {
-//           this.moveLeftIfEndbossIsAngry();
-//         }
-//       } else {
-//         if (this.otherDirection) {
-//           this.moveRight();
-//         } else {
-//           this.moveLeft();
-//         }
-//       }
-//     }
-//   }, 1000 / 60);
-// }
 
 setMovementInterval() {
   setInterval(() => {
