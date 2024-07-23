@@ -312,7 +312,6 @@ class World {
             const endbossX = endboss.x;
     
             if (characterX > endbossX) {
-                // Charakter ist rechts vom Endboss
                 endboss.otherDirection = false;
                 endboss.moveRight();
             } else if (characterX < endbossX) {

@@ -11,21 +11,21 @@ class MovableObject extends DrawableObject {
     energyEndboss = 100;
     immune = false;
     lastHit = 0;
-    applyGravity() {
-        setInterval(() => {
-            if (this.isAboveGround() || this.speedY > 0)
-                this.y -= this.speedY;
-            this.speedY -= this.acceleration;
-        }, 1000 / 60);
-    }
 
+    applyGravity() {
+      setInterval(() => {
+        if (this.isAboveGround() || this.speedY > 0)
+          this.y -= this.speedY;
+        this.speedY -= this.acceleration;
+      }, 1000 / 60);
+    }
+  
     isAboveGround() {
-        if (this instanceof ThrowableObject) {
-            return true;
-        } else {
-            return this.y < 90;
-        }
-        
+      if (this instanceof ThrowableObject) {
+        return this.y < 380; 
+      } else {
+        return this.y < 90;
+      }
     }
 
     isColliding(mo) {

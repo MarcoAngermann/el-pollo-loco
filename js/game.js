@@ -110,7 +110,7 @@ function closeStartScreen() {
     document.getElementById('startScreen').classList.add('d-none');
     document.getElementById('gameOverScreen').classList.add('d-none');
     document.getElementById('canvas').classList.remove('d-none');
-    // document.getElementById("btn-mobile-wrapper").classList.add("btn-mobile-wrapper-800")
+    // document.getElementById("btn-mobile-wrapper").classList.add("btn-mobile-wrapper-800");
 }
 
 function backToMenu() {
