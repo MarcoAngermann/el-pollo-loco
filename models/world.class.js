@@ -19,8 +19,8 @@ class World {
     collectBottles = [];
     bottleBreak = false;
     endbossInRange = false;
-    refillInterval = 10000; // Intervallzeit in Millisekunden (10 Sekunden)
-    maxBottles = 10; // Maximale Anzahl der Flaschen
+    refillInterval = 10000; 
+    maxBottles = 10; 
 
     constructor(canvas, keyboard) {
         this.keyboard = keyboard;
@@ -37,35 +37,35 @@ class World {
     checkEndbossRange() {
         setInterval(() => {
             const distance = this.endboss.x - this.character.x;
-            if (distance < 200) {
+            if (distance < 200 && !this.endbossInRange) {
                 this.endbossInRange = true;
-            } else {
+                console.log('Endboss hat angefangen zu laufen!');
+            } else if (distance >= 200 && this.endbossInRange) {
                 this.endbossInRange = false;
+                console.log('Endboss hat aufgehört zu laufen!');
             }
         }, 1000 / 60);
     }
+    
 
     checkCharacterPositionEndboss() {
         const endboss = this.level.endboss[0];
         if (endboss && !endboss.isDead) {
             const distanceToEndboss = Math.abs(this.character.x - endboss.x);
-            if (distanceToEndboss < 200) { // Beispielabstand, an dem der Endboss aktiviert wird
+            if (distanceToEndboss < 200) { 
                 this.endbossInRange = true;
-                endboss.aggressive = true; // Endboss wird aggressiv, wenn der Charakter in der Nähe ist
-                endboss.otherDirection = this.character.x < endboss.x; // Setze die Richtung
+                endboss.aggressive = true; 
+                endboss.otherDirection = this.character.x < endboss.x; 
             } else {
                 this.endbossInRange = false;
-                endboss.aggressive = false; // Endboss wird nicht aggressiv, wenn der Charakter zu weit weg ist
+                endboss.aggressive = false;
             }
         }
     }
 
     update() {
-        // Berechnung der Entfernung zwischen Spieler und Endboss
         let distanceToEndboss = Math.abs(this.character.x - this.endboss.x);
-        
-        // Setze endbossInRange basierend auf der Entfernung
-        if (distanceToEndboss < 200) { // Beispielabstand, an dem der Endboss aktiviert wird
+        if (distanceToEndboss < 200) { 
             this.endbossInRange = true;
         } else {
             this.endbossInRange = false;
@@ -90,7 +90,7 @@ class World {
             this.checkCollisionsBottles();
             this.checkCollisions();
         },10)
-        this.startRefillTimer(); // Refill-Timer starten
+        this.startRefillTimer(); 
     }
 
     startRefillTimer() {
@@ -107,23 +107,23 @@ class World {
     }
     
     checkThrowObjects() {
-        if (this.keyboard.E && this.canThrow) {  // Überprüfe, ob das Werfen erlaubt ist
+        if (this.keyboard.E && this.canThrow) { 
             if (this.collectBottles.length > 0) {
                 let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, this.character.otherDirection);
                 this.throwableObject.push(bottle);
-                this.collectBottles.pop();  // Entfernt die letzte Flasche aus dem `collectBottles`-Array
+                this.collectBottles.pop(); 
                 this.character.decreaseEnergyBottle();
                 this.throw_audio = new Audio('audio/throwing.mp3');
                 this.throw_audio.play();
                 this.throw_audio.volume = 0.3;
                 this.statusBarBottle.setPercentageBottle(this.character.energyBottle);
                 console.log('Bottle thrown');
-                console.log('Remaining collected bottles:', this.collectBottles);  // Das Array in der Konsole anzeigen
-                console.log(this.throwableObject);  // Zeigt das `throwableObject`-Array in der Konsole an
-                this.canThrow = false;  // Setze den Cooldown
+                console.log('Remaining collected bottles:', this.collectBottles);  
+                console.log(this.throwableObject);  
+                this.canThrow = false; 
                 setTimeout(() => {
-                    this.canThrow = true;  // Erlaube das Werfen nach einer Verzögerung von 1 Sekunde
-                }, 1000);  // 1000 Millisekunden = 1 Sekunde
+                    this.canThrow = true;  
+                }, 1000);  
             } else {
                 console.log('No bottles to throw');
             }
@@ -324,7 +324,6 @@ class World {
     
         
 }
-
 
 
 

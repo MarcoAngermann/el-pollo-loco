@@ -468,6 +468,12 @@ h1 {
   gap: 8px;
 }
 
+@media (min-width: 1024px){
+    .btn-mobile-wrapper {
+      display: flex !important;
+    }
+  }
+
   @media (max-width: 1024px) and (orientation: landscape) {
     .overlayMobile {
       display: none;
