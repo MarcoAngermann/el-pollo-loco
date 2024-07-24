@@ -24,7 +24,7 @@ h1 {
     margin: 0;
     font-family: 'mexico', sans-serif;
     font-size: 80px;
-    color: #bf3d01;
+    color: #ffa400;
     text-shadow: 
     -1px 2px 1px hsl(0, 0%, 0%), 
     -2px 4px 1px hsl(0, 0%, 0%), 
@@ -130,6 +130,7 @@ h1 {
     left: 75px;
     border: 1px solid rgb(255, 255, 255);
     color: white;
+    background: rgba(0, 0, 0, 0.3);
   }
   
   .instruction {
@@ -179,10 +180,10 @@ h1 {
   }
   
   .btn-mobile {
-    background: #bf3d01;
+    background: rgba(0, 0, 0, 0.3);
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
-    border: solid;
+    border: solid white;
     padding: 10px;
     margin-bottom: 10px;
     width: 30px;
@@ -190,10 +191,10 @@ h1 {
   }
   
   .btn-mobile-bottle {
-    background: #bf3d01;
+    background: rgba(0, 0, 0, 0.3);
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
-    border: solid;
+    border: solid white;
     margin-bottom: 10px;
     width: 50px;
     height: 50px;
@@ -416,7 +417,7 @@ h1 {
   } */
   
   .btn-mobile-wrapper-800 {
-    display: flex !important;
+    display: none !important;
   }
     
   #muteIcon {
@@ -472,7 +473,7 @@ h1 {
       display: none;
     }
     .btn-mobile-wrapper {
-      display: none;
+      display: flex !important;
     }
   }
   
