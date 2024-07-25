@@ -1,6 +1,6 @@
 class Endboss extends MovableObject {
-  speedIfAngry = 30;
-  speed = 10;
+  speedIfAngry = 5;
+  speed = 2.5;
   isDead = false;
   inDamage = false;
   isAlert = false;
@@ -74,14 +74,15 @@ class Endboss extends MovableObject {
       ];
 
 constructor() {
-    super().loadImage(this.IMAGES_WALKING[0]);
+    super();
+    this.loadImage(this.IMAGES_WALKING[0]);
     this.loadImages(this.IMAGES_WALKING);
     this.loadImages(this.IMAGES_DEAD);
     this.loadImages(this.IMAGES_ATTACK);
     this.loadImages(this.IMAGES_HURT);
     this.loadImages(this.IMAGES_ALERT);
     this.moveLeftAngry = false;
-    this.otherDirection = false; // Zum Beispiel, wenn du den Endboss nach links bewegen möchtest
+    this.otherDirection = false;
     this.x = 2300;
     this.animate();
     
@@ -97,7 +98,7 @@ decreaseEnergyEndboss() {
   if (!this.endbossImmune) {
     this.endbossImmune = true;
     this.energyEndboss -= 21;
-    this.speed += 3;
+    this.speed += 0.3;
     if (this.energyEndboss < 0) {
       this.energyEndboss = 0;
       this.isDeadEndboss();
@@ -147,7 +148,6 @@ isDeadEndboss() {
 }
 
 animate() {
-
   this.setMovementInterval();
   this.setupEndbossInterval();
 }
@@ -175,8 +175,6 @@ setMovementInterval() {
     }
   }, 1000 / 60);
 }
-
-
 
 setupEndbossInterval() {
   setInterval(() => {

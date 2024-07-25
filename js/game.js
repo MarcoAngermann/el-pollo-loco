@@ -1,6 +1,11 @@
 let canvas;
 let ctx;
 let world;
+let backgroundMusic = new Audio('./audio/background2.mp3');
+backgroundMusic.volume = 0.2;
+backgroundMusic.loop = true;
+let backgroundSound = false;
+let masterSound = true;
 
 
 function startGame() {
@@ -9,7 +14,7 @@ function startGame() {
     loadingScreen();
     initLevel();
     canvas = document.getElementById('canvas');
-    // playBackgroundMusic();
+    playBackgroundMusic();
     world = new World(canvas, keyboard);
     setupMobileControls();
   }
@@ -95,5 +100,29 @@ function backToMenu() {
     document.getElementById('btnThrow').addEventListener('touchstart', () => keyboard.E = true);
     document.getElementById('btnThrow').addEventListener('touchend', () => keyboard.E = false);
 }
+
+function toggleMute() {
+    // masterSound = !masterSound;
+    backgroundSound = !backgroundSound;
+    // playBackgroundMusic();
+    updateMuteIcon();
+  }
+
+  function updateMuteIcon() {
+    let muteIcon = document.getElementById('muteIcon');
+    if (backgroundSound) {
+      muteIcon.src = './img/12_icons/sound_on.svg';
+    } else {
+      muteIcon.src = './img/12_icons/sound_off.svg';
+    }
+  }
+
+  function playBackgroundMusic() {
+    if (backgroundSound) {
+      backgroundMusic.play();
+    } else {
+      backgroundMusic.pause();
+    }
+  }
 
 

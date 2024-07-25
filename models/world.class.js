@@ -29,36 +29,36 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
-        this.canThrow = true; 
+        this.canThrow = true;
         this.checkCharacterPositionEndboss();
         this.checkEndbossRange();
     }
 
     checkEndbossRange() {
         setInterval(() => {
-            const distance = this.endboss.x - this.character.x;
-            if (distance < 200 && !this.endbossInRange) {
+            const distance = this.level.endboss.x - this.character.x;
+            if (distance < 500 && !this.endbossInRange) {
                 this.endbossInRange = true;
                 console.log('Endboss hat angefangen zu laufen!');
-            } else if (distance >= 200 && this.endbossInRange) {
+            } else if (distance >= 500 && this.endbossInRange) {
                 this.endbossInRange = false;
                 console.log('Endboss hat aufgehört zu laufen!');
             }
         }, 1000 / 60);
     }
-    
 
     checkCharacterPositionEndboss() {
-        const endboss = this.level.endboss[0];
+        const endboss = this.level.endboss;
         if (endboss && !endboss.isDead) {
-            const distanceToEndboss = Math.abs(this.character.x - endboss.x);
-            if (distanceToEndboss < 200) { 
-                this.endbossInRange = true;
-                endboss.aggressive = true; 
-                endboss.otherDirection = this.character.x < endboss.x; 
-            } else {
-                this.endbossInRange = false;
-                endboss.aggressive = false;
+            const characterX = this.character.x;
+            const endbossX = endboss.x;
+    
+            if (characterX > endbossX) {
+                endboss.otherDirection = false;
+                endboss.moveRight();
+            } else if (characterX < endbossX) {
+                endboss.otherDirection = true;
+                endboss.moveLeft();
             }
         }
     }
@@ -160,23 +160,21 @@ class World {
             }
         });
     }
-    
-      checkCollisionThrowableWithEndboss() {
+
+    checkCollisionThrowableWithEndboss() {
         this.throwableObject.forEach((throwableObject, throwableIndex) => {
-          this.level.endboss.forEach((endboss) => {
-            if (throwableObject.isColliding(endboss)) {
-              console.log("Endboss getroffen!");
-              endboss.hitBottleEndboss();
-              endboss.decreaseEnergyEndboss();
-              if (endboss.energyEndboss <= 0) {
-                console.log("Endboss ist tot!");
-                endboss.isDeadEndboss();
-              }
-              this.throwableObject.splice(throwableIndex, 1);
+            if (throwableObject.isColliding(this.level.endboss)) {
+                console.log("Endboss getroffen!");
+                this.level.endboss.hitBottleEndboss();
+                this.level.endboss.decreaseEnergyEndboss();
+                if (this.level.endboss.energyEndboss <= 0) {
+                    console.log("Endboss ist tot!");
+                    this.level.endboss.isDeadEndboss();
+                }
+                this.throwableObject.splice(throwableIndex, 1);
             }
-          });
         });
-      }
+    }
        
     checkCollisions() {
         this.level.enemies.forEach((enemy, enemyIndex) => {
@@ -241,7 +239,8 @@ class World {
         this.addObjectsToMap(this.level.backgroundObjects);
         
         this.addObjectsToMap(this.level.clouds);
-        this.addObjectsToMap(this.level.endboss);
+        // console.log('Zeichne Endboss:', this.level.endboss);
+        this.addToMap(this.level.endboss);
         this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.statusBar);
         if (this.endbossInRange) {
@@ -270,18 +269,23 @@ class World {
     }
 
     addToMap(moveobject) {
+        if (!moveobject) {
+            // console.warn('Das Objekt ist undefined oder null:', moveobject);
+            return;
+        }
+    
         if (moveobject.otherDirection) {
             this.flipImage(moveobject);
-
         }
+    
         moveobject.draw(this.ctx);
         moveobject.drawFrame(this.ctx);
-
+    
         if (moveobject.otherDirection) {
             this.flipImageBack(moveobject);
         }
     }
-
+    
     flipImage(moveobject) {
         this.ctx.save();
         this.ctx.translate(moveobject.width, 0);
@@ -295,34 +299,14 @@ class World {
     }
 
     checkEndbossCollision() {
-        this.level.endboss.forEach((endboss) => {
-          if (this.character.isColliding(endboss)) {
+        if (this.character.isColliding(this.level.endboss)) {
             let endbossDamage = 25;
             this.character.hit(endbossDamage);
             console.log('Character hit', this.character.energy);
             this.statusBar.setPercentage(this.character.energy);
-          }
-        });
-      }  
-      
-    checkCharacterPositionEndboss() {
-        const endboss = this.level.endboss[0];
-        if (endboss && !endboss.isDead) {
-            const characterX = this.character.x;
-            const endbossX = endboss.x;
-    
-            if (characterX > endbossX) {
-                endboss.otherDirection = false;
-                endboss.moveRight();
-            } else if (characterX < endbossX) {
-                // Charakter ist links vom Endboss
-                endboss.otherDirection = true;
-                endboss.moveLeft();
-            }
         }
     }
-    
-        
+   
 }
 
 
