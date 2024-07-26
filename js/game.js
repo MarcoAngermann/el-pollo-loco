@@ -43,11 +43,24 @@ function enterFullScreen(element) {
     }
 }
 
+function exitFullScreen() {
+  if (document.exitFullscreen) {
+      document.exitFullscreen();
+  } else if (document.mozCancelFullScreen) { // Firefox
+      document.mozCancelFullScreen();
+  } else if (document.webkitExitFullscreen) { // Chrome, Safari and Opera
+      document.webkitExitFullscreen();
+  } else if (element.msExitFullscreen) { // IE/Edge
+      document.msExitFullscreen();
+  }
+}
+
 function winGame() {
     document.getElementById("winGameScreen").classList.remove('d-none');
     stopGame();
     // backgroundMusic.pause();
     document.getElementById("btn-mobile-wrapper").classList.remove("btn-mobile-wrapper-800");
+    exitFullScreen();
 }
 
 function stopGame() {
@@ -69,6 +82,7 @@ function gameOver() {
     stopGame();
     // backgroundMusic.pause();
     document.getElementById("btn-mobile-wrapper").classList.remove("btn-mobile-wrapper-800");
+    exitFullScreen();
 }
 
 function closeStartScreen() {
