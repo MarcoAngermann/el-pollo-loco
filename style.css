@@ -406,36 +406,16 @@ h1 {
     background-color: orange;
   }
   
-  /* button {
-    width: 200px;
-    height: 60px;
-    z-index: 1;
-    border: none;
-    border-radius: 10px;
-    background: #bf3d01;
-    font-size: 25px;
-    font-family: 'mexico';
-    cursor: pointer;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-    color: white;
-  } */
-  
-  /* button:hover {
-    background: rgb(255, 111, 0);
-    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
-  } */
-  
   .btn-mobile-wrapper-800 {
     display: none !important;
   }
     
   #muteIcon {
-    width: 54px;
+    width: 60px;
     height: auto;
-    filter: opacity(0.6);
     position: absolute;
-    right: 60px;
-    top: -10px;
+    right: 10px;
+    top: -38px;
   }
 
   .canvas-container{
@@ -477,7 +457,7 @@ h1 {
   gap: 8px;
 }
 
-@media (min-width: 1024px){
+@media (max-width: 1024px){
     .btn-mobile-wrapper {
       display: flex !important;
     }

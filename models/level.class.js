@@ -14,6 +14,5 @@ class Level {
         this.endboss = endboss;
         this.clouds = clouds;
         this.backgroundObjects = backgroundObjects;
-        console.log('Chicken', enemies)
     }
 }

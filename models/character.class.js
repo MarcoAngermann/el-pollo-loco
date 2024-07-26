@@ -6,8 +6,8 @@ class Character extends MovableObject {
     speed = 5;
     idleDuration = 1000;
     longIdleDuration = 5000;
-
-    walking_sound = new Audio('audio/walking.mp3');
+    walking_sound = new Audio("audio/running.mp3");
+    dead_sound = new Audio('./audio/character-death.mp3');
     world;
     offset = {
         left: 30,
@@ -89,7 +89,7 @@ class Character extends MovableObject {
         this.applyGravity();
         this.resetIdleTimer();
         this.animate();
-        this.walking_sound.volume = 0.5;
+        this.walking_sound.volume = 0.1;
     }
 
     animate() {
@@ -98,12 +98,16 @@ class Character extends MovableObject {
             if ((this.world.keyboard.RIGHT || this.world.keyboard.D) && this.x < this.world.level.level_end_x) {
                 this.moveRight();
                 this.otherDirection = false;
-                this.walking_sound.play();
+                if (!masterSound) {
+                    this.walking_sound.play();
+                  }
                 this.resetIdleTimer();
             } else if ((this.world.keyboard.LEFT || this.world.keyboard.A) && this.x > 0) {
                 this.moveLeft();
                 this.otherDirection = true;
-                this.walking_sound.play();
+                if (!masterSound) {
+                    this.walking_sound.play();
+                  }
                 this.resetIdleTimer();
             }
             if (this.world.keyboard.SPACE && !this.isAboveGround()) {

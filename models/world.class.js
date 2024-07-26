@@ -14,6 +14,7 @@ class World {
     statusBar = new StatusBar();
     statusBarBottle = new StatusBarBottle();
     statusBarCoin = new StatusBarCoin();
+    statusBarEndboss = new StatusBarEndboss();
     throwableObject = [];
     collectCoins = [];
     collectBottles = [];
@@ -21,7 +22,13 @@ class World {
     endbossInRange = false;
     refillInterval = 10000; 
     maxBottles = 10; 
-
+    alert_sound = new Audio('./audio/alert.mp3');
+    dead_sound = new Audio('./audio/chickendead.mp3');
+    collect_coin_sound = new Audio('./audio/coin.mp3');
+    collect_bottle_sound = new Audio('./audio/bottleplopp.mp3');
+    throw_audio = new Audio('audio/throwing.mp3');
+    playSoundChickendead = new Audio('audio/chickendead.mp3');
+                                     
     constructor(canvas, keyboard) {
         this.keyboard = keyboard;
         this.ctx = canvas.getContext('2d');
@@ -32,6 +39,11 @@ class World {
         this.canThrow = true;
         this.checkCharacterPositionEndboss();
         this.checkEndbossRange();
+        this.alert_sound.volume = 0.1;
+        this.dead_sound.volume = 0.1;
+        this.collect_coin_sound.volume = 0.3;
+        this.collect_bottle_sound.volume = 0.3;
+        this.playSoundChickendead.volume = 0.2;
     }
 
     checkEndbossRange() {
@@ -39,10 +51,8 @@ class World {
             const distance = this.level.endboss.x - this.character.x;
             if (distance < 500 && !this.endbossInRange) {
                 this.endbossInRange = true;
-                console.log('Endboss hat angefangen zu laufen!');
             } else if (distance >= 500 && this.endbossInRange) {
                 this.endbossInRange = false;
-                console.log('Endboss hat aufgehört zu laufen!');
             }
         }, 1000 / 60);
     }
@@ -52,7 +62,6 @@ class World {
         if (endboss && !endboss.isDead) {
             const characterX = this.character.x;
             const endbossX = endboss.x;
-    
             if (characterX > endbossX) {
                 endboss.otherDirection = false;
                 endboss.moveRight();
@@ -113,19 +122,16 @@ class World {
                 this.throwableObject.push(bottle);
                 this.collectBottles.pop(); 
                 this.character.decreaseEnergyBottle();
-                this.throw_audio = new Audio('audio/throwing.mp3');
-                this.throw_audio.play();
+                if (!masterSound) {
+                    this.throw_audio.play();
+                }
                 this.throw_audio.volume = 0.3;
                 this.statusBarBottle.setPercentageBottle(this.character.energyBottle);
-                console.log('Bottle thrown');
-                console.log('Remaining collected bottles:', this.collectBottles);  
-                console.log(this.throwableObject);  
                 this.canThrow = false; 
                 setTimeout(() => {
                     this.canThrow = true;  
                 }, 1000);  
             } else {
-                console.log('No bottles to throw');
             }
         }
     }
@@ -136,11 +142,11 @@ class World {
                 if (throwableObject.isColliding(enemy, enemyIndex)) {
                     if (!enemy.isDead) {
                         enemy.isDead = true;
-                        setTimeout(() => {
-                            this.playSoundChickendead = new Audio('audio/chickendead.mp3');
+                        if (!masterSound) {
                             this.playSoundChickendead.play();
-                            this.playSoundChickendead.volume = 0.2;
-                            console.log(enemyIndex);
+                        }
+                        setTimeout(() => {
+                       
                         }, 300);
                     }
                     this.throwableObject.splice(throwableIndex, 1);
@@ -165,6 +171,7 @@ class World {
         this.throwableObject.forEach((throwableObject, throwableIndex) => {
             if (throwableObject.isColliding(this.level.endboss)) {
                 console.log("Endboss getroffen!");
+                this.statusBarEndboss.setPercentageEndboss(this.level.endboss.energyEndboss);
                 this.level.endboss.hitBottleEndboss();
                 this.level.endboss.decreaseEnergyEndboss();
                 if (this.level.endboss.energyEndboss <= 0) {
@@ -182,12 +189,12 @@ class World {
                 if(this.character.speedY < 0 && this.character.isAboveGround() && !enemy.isDead) {
                     this.character.speedY = 15;
                     this.character.x += 2; 
-                    enemy.isDead = true;      
+                    enemy.isDead = true;     
+                    if (!masterSound) {
+                        this.playSoundChickendead.play();
+                    } 
                     setTimeout(() => {
                         this.level.enemies.splice(enemyIndex, 1);
-                        this.playSoundChickendead = new Audio('audio/chickendead.mp3');
-                        this.playSoundChickendead.play();
-                        this.playSoundChickendead.volume = 0.2;
                     }, 100);
                 } else {
                     if (!enemy.isDead) {
@@ -204,8 +211,9 @@ class World {
         this.level.coins.forEach((coin) => {
             if (this.character.isColliding(coin)) {
                 this.level.coins.splice(this.level.coins.indexOf(coin), 1);
-                this.playSoundCoin = new Audio('audio/coin.mp3');
-                this.playSoundCoin.play();
+                if (!masterSound) {
+                    this.collect_coin_sound.play();
+                }
                 const percentagePerCoin = 100 / totalCoins;
                 this.character.energyCoin += percentagePerCoin;
                 this.character.energyCoin = Math.min(100, this.character.energyCoin);
@@ -222,13 +230,13 @@ class World {
             if (this.character.isColliding(bottle)) {
                 if (this.collectBottles.length < 5) {
                     this.level.bottles.splice(this.level.bottles.indexOf(bottle), 1);
-                    this.playSoundPlopp = new Audio('audio/bottleplopp.mp3');
-                    this.playSoundPlopp.play();
+                    if (!masterSound) {
+                        this.collect_bottle_sound.play();
+                    }
                     this.character.energyBottle += 20;
                     this.statusBarBottle.setPercentageBottle(this.character.energyBottle);
                     this.collectBottles.push(bottle);
-                } else {
-                }
+                } 
             }
         });
     }
@@ -236,10 +244,8 @@ class World {
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.translate(this.camera_x, 0);
-        this.addObjectsToMap(this.level.backgroundObjects);
-        
+        this.addObjectsToMap(this.level.backgroundObjects);    
         this.addObjectsToMap(this.level.clouds);
-        // console.log('Zeichne Endboss:', this.level.endboss);
         this.addToMap(this.level.endboss);
         this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.statusBar);
@@ -252,15 +258,13 @@ class World {
         this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.throwableObject);
-        this.addObjectsToMap(this.level.coins);
-        
+        this.addObjectsToMap(this.level.coins);   
         this.addToMap(this.character);    
         this.ctx.translate(-this.camera_x, 0);
         let self = this;
         requestAnimationFrame(function () {
             self.draw();
         });
-
     }
     addObjectsToMap(objects) {
         objects.forEach((object) => {
@@ -270,17 +274,13 @@ class World {
 
     addToMap(moveobject) {
         if (!moveobject) {
-            // console.warn('Das Objekt ist undefined oder null:', moveobject);
             return;
         }
-    
         if (moveobject.otherDirection) {
             this.flipImage(moveobject);
         }
-    
         moveobject.draw(this.ctx);
         moveobject.drawFrame(this.ctx);
-    
         if (moveobject.otherDirection) {
             this.flipImageBack(moveobject);
         }
@@ -302,7 +302,6 @@ class World {
         if (this.character.isColliding(this.level.endboss)) {
             let endbossDamage = 25;
             this.character.hit(endbossDamage);
-            console.log('Character hit', this.character.energy);
             this.statusBar.setPercentage(this.character.energy);
         }
     }

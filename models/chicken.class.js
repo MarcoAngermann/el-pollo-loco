@@ -4,6 +4,7 @@ height = 80;
 width = 80;
 y = 353;
 isDead = false;
+chicken_audio = new Audio('audio/chicken2.mp3');
 offset = {
     left: 5,
     top: 5,
@@ -26,8 +27,7 @@ IMAGES_DEAD = [
         this.speed = 0.15 + Math.random() * 0.25;
         this.animate();
         this.randomizePosition();
-        // this.chicken_audio = new Audio('audio/chicken1.mp3');
-        // this.chicken_audio.volume = 0.02;
+        this.chicken_audio.volume = 0.01;
     }
 
     randomizePosition() {
@@ -38,10 +38,12 @@ IMAGES_DEAD = [
         setInterval(() => {
           this.moveLeft();
         }, 1000 / 60);
-    
         setInterval(() => {
           if (this.isDead === false) {
             this.playAnimation(this.IMAGES_WALKING);
+            if (!masterSound) {
+              this.chicken_audio.play();
+            }
           }
           if (this.isDead === true) {
             this.playAnimation(this.IMAGES_DEAD);

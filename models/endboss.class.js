@@ -1,5 +1,5 @@
 class Endboss extends MovableObject {
-  speedIfAngry = 5;
+  speedIfAngry = 3.5;
   speed = 2.5;
   isDead = false;
   inDamage = false;
@@ -138,8 +138,6 @@ moveRightIfEndbossIsAngry() {
   console.log('Moving right angrily with speed:', this.speedIfAngry);
   this.x += this.speedIfAngry;
 }
-
-
 
 isDeadEndboss() {
   if (this.energyEndboss <= 0) {

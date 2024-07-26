@@ -55,7 +55,6 @@ class StatusBarBottle extends DrawableObject {
     ]
     percentageBottle = 0;
   
-  
     constructor() {
       super();
       this.loadImages(this.IMAGES);
@@ -66,8 +65,6 @@ class StatusBarBottle extends DrawableObject {
       this.setPercentageBottle(0);
     }
   
-  
- 
     setPercentageBottle(percentageBottle) {
       this.percentageBottle = percentageBottle;
       let path = this.IMAGES[this.setImagesPercentageBottle()];
@@ -103,7 +100,6 @@ class StatusBarBottle extends DrawableObject {
     ]
     percentageCoin = 0;
   
-  
     constructor() {
       super();
       this.loadImages(this.IMAGES);
@@ -122,9 +118,9 @@ class StatusBarBottle extends DrawableObject {
   
     setImagesPercentageCoin() {
       if (this.percentageCoin <= 10) {
-          return 0; // Kein Balken anzeigen
+          return 0;
       } else if (this.percentageCoin <= 20) {
-          return 1; // Erster Balken anzeigen
+          return 1;
       } else if (this.percentageCoin <= 40) {
           return 2;
       } else if (this.percentageCoin <= 60) {
@@ -140,12 +136,12 @@ class StatusBarBottle extends DrawableObject {
   class StatusBarEndboss extends DrawableObject {
 
     IMAGES = [
-      'img/7_statusbars/2_statusbar_endboss/orange/orange0.png',
-      'img/7_statusbars/2_statusbar_endboss/orange/orange20.png',
-      'img/7_statusbars/2_statusbar_endboss/orange/orange40.png',
+      'img/7_statusbars/2_statusbar_endboss/green/green0.png',
+      'img/7_statusbars/2_statusbar_endboss/green/green20.png',
+      'img/7_statusbars/2_statusbar_endboss/green/green40.png',
       'img/7_statusbars/2_statusbar_endboss/green/green60.png',
       'img/7_statusbars/2_statusbar_endboss/green/green80.png',
-      'img/7_statusbars/2_statusbar_endboss/blue/blue100.png',
+      'img/7_statusbars/2_statusbar_endboss/green/green100.png',
     ]
     percentageEndboss = 100;
   
@@ -153,8 +149,8 @@ class StatusBarBottle extends DrawableObject {
     constructor() {
       super();
       this.loadImages(this.IMAGES);
-      this.x = 500;
-      this.y = 105;
+      this.x = 450;
+      this.y = 15;
       this.width = 200;
       this.height = 60;
       this.setPercentageEndboss(100);

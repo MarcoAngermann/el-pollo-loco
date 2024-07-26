@@ -5,6 +5,7 @@ class ThrowableObject extends MovableObject {
     right: 20,
     bottom: 20,
   };
+  bottle_splash_audio = new Audio('./audio/bottle.mp3');
 
   IMAGES_ROTATE = [
     'img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
@@ -34,6 +35,7 @@ class ThrowableObject extends MovableObject {
     this.isSplashing = false;
     this.throw();
     this.animate();
+    this.bottle_splash_audio.volume = 0.2;
   }
 
   throw() {
@@ -58,6 +60,9 @@ class ThrowableObject extends MovableObject {
         if (!this.isAboveGround()) {
           this.isSplashing = true;
           this.playSplashAnimation();
+          if (!masterSound) {
+            this.bottle_splash_audio.play();
+          }
         }
       }
     }, 50);
