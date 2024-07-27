@@ -22,12 +22,21 @@ class World {
     endbossInRange = false;
     refillInterval = 10000; 
     maxBottles = 10; 
-    alert_sound = new Audio('./audio/alert.mp3');
-    dead_sound = new Audio('./audio/chickendead.mp3');
+    // alert_sound = new Audio('./audio/alert.mp3');
+    // dead_sound = new Audio('./audio/chickendead.mp3');
     collect_coin_sound = new Audio('./audio/coin.mp3');
     collect_bottle_sound = new Audio('./audio/bottleplopp.mp3');
     throw_audio = new Audio('audio/throwing.mp3');
     playSoundChickendead = new Audio('audio/chickendead.mp3');
+
+    allSounds = [this.collect_coin_sound, this.collect_bottle_sound, this.playSoundChickendead];
+
+    stopAllSounds() {
+        this.allSounds.forEach(sound => {
+            sound.pause();
+            sound.currentTime = 0;
+        });
+    }
                                      
     constructor(canvas, keyboard) {
         this.keyboard = keyboard;
@@ -39,8 +48,8 @@ class World {
         this.canThrow = true;
         this.checkCharacterPositionEndboss();
         this.checkEndbossRange();
-        this.alert_sound.volume = 0.1;
-        this.dead_sound.volume = 0.1;
+        // this.alert_sound.volume = 0.1;
+        // this.dead_sound.volume = 0.1;
         this.collect_coin_sound.volume = 0.3;
         this.collect_bottle_sound.volume = 0.3;
         this.playSoundChickendead.volume = 0.2;
@@ -191,6 +200,7 @@ class World {
                     this.character.x += 2; 
                     enemy.isDead = true;     
                     if (!masterSound) {
+                        this.playSoundChickendead.currentTime = 0;
                         this.playSoundChickendead.play();
                     } 
                     setTimeout(() => {

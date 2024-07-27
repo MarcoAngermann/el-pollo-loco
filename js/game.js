@@ -83,6 +83,7 @@ function restartGame() {
     document.getElementById("canvas").classList.remove('d-none');
     closeStartScreen();
     startGame();
+    world.stopAllSounds();
 }
 
 function gameOver() {
