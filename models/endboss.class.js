@@ -116,11 +116,12 @@ checkAngryEndboss() {
   if (this.energyEndboss <= 20) {
     this.isAlert = true;
     this.moveLeftAngry = false;
-    // // setTimeout(() => {
-    // //   if (!masterSound) {
-    // //     this.alert_sound.play();
-    // //   }
-    // }, 10);
+    
+    setTimeout(() => {
+      if (!masterSound) {
+        world.alert_sound.play();
+      }
+    }, 10);
     setTimeout(() => {
       this.isAlert = false;
       this.moveLeftAngry = true;

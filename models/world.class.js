@@ -22,22 +22,12 @@ class World {
     endbossInRange = false;
     refillInterval = 10000; 
     maxBottles = 10; 
-    // alert_sound = new Audio('./audio/alert.mp3');
-    // dead_sound = new Audio('./audio/chickendead.mp3');
+    alert_sound = new Audio('./audio/alert.mp3');
     collect_coin_sound = new Audio('./audio/coin.mp3');
     collect_bottle_sound = new Audio('./audio/bottleplopp.mp3');
     throw_audio = new Audio('audio/throwing.mp3');
     playSoundChickendead = new Audio('audio/chickendead.mp3');
-
-    allSounds = [this.collect_coin_sound, this.collect_bottle_sound, this.playSoundChickendead];
-
-    stopAllSounds() {
-        this.allSounds.forEach(sound => {
-            sound.pause();
-            sound.currentTime = 0;
-        });
-    }
-                                     
+                                   
     constructor(canvas, keyboard) {
         this.keyboard = keyboard;
         this.ctx = canvas.getContext('2d');
@@ -48,11 +38,10 @@ class World {
         this.canThrow = true;
         this.checkCharacterPositionEndboss();
         this.checkEndbossRange();
-        // this.alert_sound.volume = 0.1;
-        // this.dead_sound.volume = 0.1;
-        this.collect_coin_sound.volume = 0.3;
-        this.collect_bottle_sound.volume = 0.3;
-        this.playSoundChickendead.volume = 0.2;
+        this.alert_sound.volume = 0.3;
+        this.collect_coin_sound.volume = 0.2;
+        this.collect_bottle_sound.volume = 0.2;
+        this.playSoundChickendead.volume = 0.1;
     }
 
     checkEndbossRange() {
@@ -152,6 +141,7 @@ class World {
                     if (!enemy.isDead) {
                         enemy.isDead = true;
                         if (!masterSound) {
+                            this.playSoundChickendead.currentTime = 0;
                             this.playSoundChickendead.play();
                         }
                         setTimeout(() => {
@@ -222,6 +212,7 @@ class World {
             if (this.character.isColliding(coin)) {
                 this.level.coins.splice(this.level.coins.indexOf(coin), 1);
                 if (!masterSound) {
+                    this.collect_coin_sound.currentTime = 0;
                     this.collect_coin_sound.play();
                 }
                 const percentagePerCoin = 100 / totalCoins;
@@ -241,6 +232,7 @@ class World {
                 if (this.collectBottles.length < 5) {
                     this.level.bottles.splice(this.level.bottles.indexOf(bottle), 1);
                     if (!masterSound) {
+                        this.collect_bottle_sound.currentTime = 0;
                         this.collect_bottle_sound.play();
                     }
                     this.character.energyBottle += 20;

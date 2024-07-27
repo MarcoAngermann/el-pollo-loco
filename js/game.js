@@ -83,7 +83,7 @@ function restartGame() {
     document.getElementById("canvas").classList.remove('d-none');
     closeStartScreen();
     startGame();
-    world.stopAllSounds();
+    location.reload();
 }
 
 function gameOver() {
@@ -111,6 +111,7 @@ function backToMenu() {
     document.getElementById("canvas").classList.remove('d-none');
     document.getElementById("btn-mobile-wrapper").style.display = "none";
     playBackgroundMusic();
+    location.reload();
   }
 
   function setupMobileControls() {
