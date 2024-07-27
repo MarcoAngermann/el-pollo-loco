@@ -7,7 +7,7 @@ class Character extends MovableObject {
     idleDuration = 1000;
     longIdleDuration = 5000;
     walking_sound = new Audio("audio/running.mp3");
-    // dead_sound = new Audio('./audio/character-death.mp3');
+    sleep_sound = new Audio("audio/snoring.mp3");
     world;
     offset = {
         left: 30,
@@ -90,6 +90,8 @@ class Character extends MovableObject {
         this.resetIdleTimer();
         this.animate();
         this.walking_sound.volume = 0.1;
+        this.walking_sound.loop = true;
+        this.sleep_sound.volume = 0.3;
     }
 
     animate() {
@@ -146,6 +148,9 @@ class Character extends MovableObject {
         const now = Date.now();
         const timeSinceLastActivity = now - this.lastActiveTime;
         if (timeSinceLastActivity >= this.longIdleDuration) {
+            if (!masterSound) {
+                this.sleep_sound.play();
+            }
             this.playAnimation(this.IMAGES_SLEEPING);
         } else if (timeSinceLastActivity >= this.idleDuration) {
             this.playAnimation(this.IMAGES_IDLE);

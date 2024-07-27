@@ -28,6 +28,10 @@ class World {
     throw_audio = new Audio('audio/throwing.mp3');
     playSoundChickendead = new Audio('audio/chickendead.mp3');
                                    
+
+/**
+ * Constructs a new instance of the World class.
+ */
     constructor(canvas, keyboard) {
         this.keyboard = keyboard;
         this.ctx = canvas.getContext('2d');
@@ -44,6 +48,10 @@ class World {
         this.playSoundChickendead.volume = 0.1;
     }
 
+    /**
+     * Checks the range of the endboss relative to the character's position and updates the endbossInRange flag accordingly.
+     * This function is called periodically using setInterval to check the distance between the endboss and the character.
+     */
     checkEndbossRange() {
         setInterval(() => {
             const distance = this.level.endboss.x - this.character.x;
@@ -55,6 +63,10 @@ class World {
         }, 1000 / 60);
     }
 
+        /**
+     * Checks the position of the character relative to the endboss and updates the endboss's direction accordingly.
+     * If the endboss exists and is not dead, it checks the position of the character relative to the endboss.
+     */
     checkCharacterPositionEndboss() {
         const endboss = this.level.endboss;
         if (endboss && !endboss.isDead) {
@@ -70,6 +82,10 @@ class World {
         }
     }
 
+    /**
+     * Updates the `endbossInRange` property based on the distance between the character and the endboss.
+     * If the distance is less than 200, sets `endbossInRange` to true. Otherwise, sets it to false.
+     */
     update() {
         let distanceToEndboss = Math.abs(this.character.x - this.endboss.x);
         if (distanceToEndboss < 200) { 
@@ -78,12 +94,18 @@ class World {
             this.endbossInRange = false;
         }
     }
-
+    /**
+     * Sets the world property of the character and endboss objects to the current world object.
+     * This function does not take any parameters.
+     */
     setWorld() {
         this.character.world = this;
         this.endboss.world = this;
     }
 
+    /**
+     * Runs the game loop, checking for collisions and updates at regular intervals.
+     */
     run() {
         setInterval(() => {
             this.checkCollisionsCoins();
@@ -109,7 +131,6 @@ class World {
     refillBottles() {
         if (this.bottles.length < this.maxBottles) {
             this.bottles.push(new Bottle());
-            console.log('Bottles refilled:', this.bottles);
         }
     }
     
@@ -129,8 +150,7 @@ class World {
                 setTimeout(() => {
                     this.canThrow = true;  
                 }, 1000);  
-            } else {
-            }
+            } 
         }
     }
 
@@ -169,12 +189,10 @@ class World {
     checkCollisionThrowableWithEndboss() {
         this.throwableObject.forEach((throwableObject, throwableIndex) => {
             if (throwableObject.isColliding(this.level.endboss)) {
-                console.log("Endboss getroffen!");
                 this.statusBarEndboss.setPercentageEndboss(this.level.endboss.energyEndboss);
                 this.level.endboss.hitBottleEndboss();
                 this.level.endboss.decreaseEnergyEndboss();
                 if (this.level.endboss.energyEndboss <= 0) {
-                    console.log("Endboss ist tot!");
                     this.level.endboss.isDeadEndboss();
                 }
                 this.throwableObject.splice(throwableIndex, 1);
@@ -232,7 +250,6 @@ class World {
                 if (this.collectBottles.length < 5) {
                     this.level.bottles.splice(this.level.bottles.indexOf(bottle), 1);
                     if (!masterSound) {
-                        this.collect_bottle_sound.currentTime = 0;
                         this.collect_bottle_sound.play();
                     }
                     this.character.energyBottle += 20;

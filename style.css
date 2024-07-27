@@ -129,14 +129,15 @@ h1 {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    gap: 10px;
+    gap: 5px;
     z-index: 100;
     font-family: 'mexico';
     font-size: 14px;
-    border-radius: 5px;
-    padding: 5px 10px;
-    bottom: 10px;
-    left: 75px;
+    border-radius: 15px;
+    padding: 6px 15px;
+    bottom: 5px;
+    left: 50px;
+    right: 50px;
     border: 1px solid rgb(255, 255, 255);
     color: white;
     background: rgba(0, 0, 0, 0.3);
@@ -148,6 +149,23 @@ h1 {
     gap: 10px;
     align-items: center;
     font-size: 16px;
+  }
+
+  .instruction-links {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: center;
+    font-size: 16px
+  }
+
+  .instruction-links a{
+    color: white;
+    text-decoration: none;
+  }
+
+  .instruction-links a:hover{
+    color: #ffa400;
   }
   
   .space {
@@ -172,12 +190,6 @@ h1 {
     animation: spin 1s linear infinite;
   }
   
-  .btn-mobile-wrapper {
-    display: none;
-    width: 100%;
-    flex-direction: column;
-  }
-  
   .btn-mobile-flex {
     padding: 0 20px 0 20px;
     display: flex;
@@ -186,6 +198,9 @@ h1 {
   .btn-mobile-wrapper {
     bottom: 40px;
     position: absolute;
+    display: none;
+    width: 100%;
+    flex-direction: column;
   }
   
   .btn-mobile {
@@ -457,6 +472,60 @@ h1 {
   gap: 8px;
 }
 
+.impressum {
+  text-align: center;
+  font-size: 32px;
+  color: white;
+  font-weight: bolder;
+  margin-top: 20px
+}
+
+.impressum a {
+  color: white;
+  text-decoration: none;
+}
+
+.impressum-headline {
+  display: block;
+}
+
+.backtoindex {
+  position: absolute;
+  top: 5px;
+  left: 20px;
+}
+
+.privacypolice {
+  margin: 96px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  text-align: center;
+}
+
+.privacy-headline {
+  display: block;
+}
+
+.privacypolice h1, h2, h3, h4 {
+  font-family: sans-serif;
+  line-height: normal;
+}
+
+.privacypolice h2 {
+  border: none;
+}
+
+.privacy-body {
+  background-repeat: repeat;
+}
+
+.controls {
+  font-family: 'mexico';
+}
+
+
 @media (max-width: 1024px){
     .btn-mobile-wrapper {
       display: flex !important;
@@ -472,15 +541,40 @@ h1 {
     }
   }
   
+  @media (max-width: 1024px) and (orientation: landscape) and (max-height: 800px) {
+    .instruction ,
+    .controls {
+      display: none;
+    }
+    .instructions-flex {
+      bottom: 90px;
+    }
+
+  }
+
   @media (max-width: 1024px) and (orientation: landscape) and (max-height: 600px) {
     h1 {
       display: none;
+    }
+
+  
+
+    .instruction ,
+    .controls {
+      display: none;
+    }
+    .instructions-flex {
+      bottom: 106px;
     }
   }
   
   @media (max-width: 720px) {
     h1 {
       display: none;
+    }
+
+    .startscreen-wrapper-img {
+      border-radius: 0px;
     }
   }
   
@@ -509,6 +603,38 @@ h1 {
     }
     .game-container {
       overflow: hidden;
+    }
+  }
+
+  @media (max-width: 1000px)  {
+    .privacy-headline {
+      font-size: 56px;
+    }
+  }
+
+  @media (max-width: 700px)  {
+    .privacy-headline {
+      font-size: 32px;
+    }
+  }
+
+  @media (max-width: 500px) {
+    .impressum-headline {
+      font-size: 56px;
+    }
+  }
+
+  @media (max-width: 400px)  {
+    .privacy-headline {
+      font-size: 24px;
+    }
+
+    .privacypolice p{
+      font-size: 18px;
+    }
+
+    .privacypolice h3 {
+      font-size: 15px;
     }
   }
 
