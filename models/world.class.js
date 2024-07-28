@@ -175,9 +175,6 @@ class World {
                             this.playSoundChickendead.currentTime = 0;
                             this.playSoundChickendead.play();
                         }
-                        setTimeout(() => {
-
-                        }, 300);
                     }
                     this.throwableObject.splice(throwableIndex, 1);
                     setTimeout(() => {
@@ -223,25 +220,46 @@ class World {
     checkCollisions() {
         this.level.enemies.forEach((enemy, enemyIndex) => {
             if (this.character.isColliding(enemy)) {
-                if (this.character.speedY < 0 && this.character.isAboveGround() && !enemy.isDead) {
-                    this.character.speedY = 15;
-                    this.character.x += 2;
-                    enemy.isDead = true;
-                    if (!masterSound) {
-                        this.playSoundChickendead.currentTime = 0;
-                        this.playSoundChickendead.play();
-                    }
-                    setTimeout(() => {
-                        this.level.enemies.splice(enemyIndex, 1);
-                    }, 100);
-                } else {
-                    if (!enemy.isDead) {
-                        this.character.hit();
-                        this.statusBar.setPercentage(this.character.energy);
-                    }
-                }
+                this.handleCollision(enemy, enemyIndex);
             }
-        })
+        });
+    }
+
+    /**
+ * Handles the collision between the character and an enemy.
+ */
+    handleCollision(enemy, enemyIndex) {
+        if (this.character.speedY < 0 && this.character.isAboveGround() && !enemy.isDead) {
+            this.handleEnemyStomp(enemy, enemyIndex);
+        } else {
+            this.handleCharacterHit(enemy);
+        }
+    }
+
+    /**
+     * Handles the enemy stomp collision between the character and an enemy.
+     */
+    handleEnemyStomp(enemy, enemyIndex) {
+        this.character.speedY = 15;
+        this.character.x += 2;
+        enemy.isDead = true;
+        if (!masterSound) {
+            this.playSoundChickendead.currentTime = 0;
+            this.playSoundChickendead.play();
+        }
+        setTimeout(() => {
+            this.level.enemies.splice(enemyIndex, 1);
+        }, 100);
+    }
+
+    /**
+ * Handles the character hit by an enemy.
+ */
+    handleCharacterHit(enemy) {
+        if (!enemy.isDead) {
+            this.character.hit();
+            this.statusBar.setPercentage(this.character.energy);
+        }
     }
 
     /**

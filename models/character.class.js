@@ -98,51 +98,99 @@ class Character extends MovableObject {
     }
 
     /**
-     * Animates the character's movement and actions.
-     * This function is called repeatedly to update the character's animation and movement.
-     */
+ * Executes the animation loop by calling various methods to handle walking sound, movement, jumping,
+ */
     animate() {
         setInterval(() => {
-            this.walking_sound.pause();
-            if ((this.world.keyboard.RIGHT || this.world.keyboard.D) && this.x < this.world.level.level_end_x) {
-                this.moveRight();
-                this.otherDirection = false;
-                if (!masterSound) {
-                    this.walking_sound.play();
-                }
-                this.resetIdleTimer();
-            } else if ((this.world.keyboard.LEFT || this.world.keyboard.A) && this.x > 0) {
-                this.moveLeft();
-                this.otherDirection = true;
-                if (!masterSound) {
-                    this.walking_sound.play();
-                }
-                this.resetIdleTimer();
-            }
-            if (this.world.keyboard.SPACE && !this.isAboveGround()) {
-                super.jump();
-                this.resetIdleTimer();
-            }
-            this.world.camera_x = -this.x + 100;
-            if (this.isDead()) {
-                this.playAnimation(this.IMAGES_DEAD);
-                this.gameOverTime();
-            } else if (this.isHurt()) {
-                this.playAnimation(this.IMAGES_HURT);
-            } else if (this.isAboveGround()) {
-                this.playAnimation(this.IMAGES_JUMPING);
-            } else {
-                if (this.world.keyboard.LEFT || this.world.keyboard.RIGHT || this.world.keyboard.A || this.world.keyboard.D) {
-                    this.playAnimation(this.IMAGES_WALKING);
-                    this.resetIdleTimer();
-                } else if (this.world.keyboard.E) {
-                    this.resetIdleTimer();
-                }
-                else {
-                    this.checkIdleState();
-                }
-            }
+            this.handleWalkingSound();
+            this.handleMovement();
+            this.handleJumping();
+            this.updateCameraPosition();
+            this.handleAnimations();
         }, 1000 / 60);
+    }
+
+    /**
+ * Pauses the walking sound.
+ */
+    handleWalkingSound() {
+        this.walking_sound.pause();
+    }
+
+    /**
+ * Handles the movement of the character based on the keyboard input.
+ */
+    handleMovement() {
+        if ((this.world.keyboard.RIGHT || this.world.keyboard.D) && this.x < this.world.level.level_end_x) {
+            this.moveRight();
+            this.otherDirection = false;
+            this.playWalkingSound();
+            this.resetIdleTimer();
+            this.sleep_sound.pause();
+        } else if ((this.world.keyboard.LEFT || this.world.keyboard.A) && this.x > 0) {
+            this.moveLeft();
+            this.otherDirection = true;
+            this.playWalkingSound();
+            this.resetIdleTimer();
+            this.sleep_sound.pause();
+        }
+    }
+
+    /**
+ * Plays the walking sound if the master sound is not playing.
+ */
+    playWalkingSound() {
+        if (!masterSound) {
+            this.walking_sound.play();
+        }
+    }
+
+    /**
+ * Handles the jumping behavior of the character.
+ */
+    handleJumping() {
+        if (this.world.keyboard.SPACE && !this.isAboveGround()) {
+            super.jump();
+            this.resetIdleTimer();
+            this.sleep_sound.pause();
+        }
+    }
+
+    /**
+ * Updates the camera position based on the character's position.
+ */
+    updateCameraPosition() {
+        this.world.camera_x = -this.x + 100;
+    }
+
+    /**
+ * Handles the animations of the character based on its current state.
+ */
+    handleAnimations() {
+        if (this.isDead()) {
+            this.playAnimation(this.IMAGES_DEAD);
+            this.gameOverTime();
+        } else if (this.isHurt()) {
+            this.playAnimation(this.IMAGES_HURT);
+        } else if (this.isAboveGround()) {
+            this.playAnimation(this.IMAGES_JUMPING);
+        } else {
+            this.handleIdleOrWalking();
+        }
+    }
+
+    /**
+ * Handles the idle or walking state of the character.
+ */
+    handleIdleOrWalking() {
+        if (this.world.keyboard.LEFT || this.world.keyboard.RIGHT || this.world.keyboard.A || this.world.keyboard.D) {
+            this.playAnimation(this.IMAGES_WALKING);
+            this.resetIdleTimer();
+        } else if (this.world.keyboard.E) {
+            this.resetIdleTimer();
+        } else {
+            this.checkIdleState();
+        }
     }
 
     /**
@@ -189,6 +237,7 @@ class Character extends MovableObject {
      */
     resetIdleTimer() {
         this.lastActiveTime = Date.now();
+        this.sleep_sound.pause();
     }
 
 }

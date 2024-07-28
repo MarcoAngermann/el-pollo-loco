@@ -100,12 +100,25 @@ function stopGame() {
  * Restarts the game by hiding the game over and win screens, showing the canvas,
  */
 function restartGame() {
+  stopAllSounds();
   document.getElementById("gameOverScreen").classList.add('d-none');
   document.getElementById("winGameScreen").classList.add('d-none');
   document.getElementById("canvas").classList.remove('d-none');
   closeStartScreen();
   startGame();
-  location.reload();
+  // location.reload();
+}
+
+/**
+ * Stops all sounds by pausing the background music, win audio, and lose audio.
+ */
+function stopAllSounds() {
+  backgroundMusic.pause();
+  win_audio.pause();
+  lose_audio.pause();
+  backgroundMusic.currentTime = 0;
+  win_audio.currentTime = 0;
+  lose_audio.currentTime = 0;
 }
 
 /**
