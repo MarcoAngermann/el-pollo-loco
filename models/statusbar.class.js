@@ -1,180 +1,215 @@
 class StatusBar extends DrawableObject {
 
-    IMAGES = [
-        'img/7_statusbars/1_statusbar/2_statusbar_health/green/0.png',
-        'img/7_statusbars/1_statusbar/2_statusbar_health/green/20.png',
-        'img/7_statusbars/1_statusbar/2_statusbar_health/green/40.png',
-        'img/7_statusbars/1_statusbar/2_statusbar_health/green/60.png',
-        'img/7_statusbars/1_statusbar/2_statusbar_health/green/80.png',
-        'img/7_statusbars/1_statusbar/2_statusbar_health/green/100.png'
-    ];
-    percentage = 100;
+  IMAGES = [
+    'img/7_statusbars/1_statusbar/2_statusbar_health/green/0.png',
+    'img/7_statusbars/1_statusbar/2_statusbar_health/green/20.png',
+    'img/7_statusbars/1_statusbar/2_statusbar_health/green/40.png',
+    'img/7_statusbars/1_statusbar/2_statusbar_health/green/60.png',
+    'img/7_statusbars/1_statusbar/2_statusbar_health/green/80.png',
+    'img/7_statusbars/1_statusbar/2_statusbar_health/green/100.png'
+  ];
+  percentage = 100;
 
-    constructor() {
-        super();
-        this.loadImages(this.IMAGES);
-        this.x = 40;
-        this.y = 5;
-        this.width = 200;
-        this.height = 60;
-        this.setPercentage(100);
-    }
+  /**
+* Initializes a new instance of the StatusBar class.
+*/
+  constructor() {
+    super();
+    this.loadImages(this.IMAGES);
+    this.x = 40;
+    this.y = 5;
+    this.width = 200;
+    this.height = 60;
+    this.setPercentage(100);
+  }
 
-    setPercentage(percentage) {
-        this.percentage = percentage;
-        let path = this.IMAGES[this.resolveImageIndex()];
-        this.img = this.imageCache[path];
-    }
+  /**
+* Sets the percentage value and updates the image based on the percentage.
+*/
+  setPercentage(percentage) {
+    this.percentage = percentage;
+    let path = this.IMAGES[this.resolveImageIndex()];
+    this.img = this.imageCache[path];
+  }
 
-    resolveImageIndex() {
-        if (this.percentage == 100) {
-            return 5;
-        } else if (this.percentage > 80) {
-            return 4;
-        } else if (this.percentage > 60) {
-            return 3;
-        } else if (this.percentage > 40) {
-            return 2;
-        } else if (this.percentage > 20) {
-            return 1;
-        } else {
-            return 0;
-        }
+  /**
+* Resolves the image index based on the current percentage.
+*/
+  resolveImageIndex() {
+    if (this.percentage == 100) {
+      return 5;
+    } else if (this.percentage > 80) {
+      return 4;
+    } else if (this.percentage > 60) {
+      return 3;
+    } else if (this.percentage > 40) {
+      return 2;
+    } else if (this.percentage > 20) {
+      return 1;
+    } else {
+      return 0;
     }
+  }
 }
 
 class StatusBarBottle extends DrawableObject {
 
-    IMAGES = [
-      'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/0.png',
-      'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/20.png',
-      'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/40.png',
-      'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/60.png',
-      'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/80.png',
-      'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/100.png',
-    ]
-    percentageBottle = 0;
-  
-    constructor() {
-      super();
-      this.loadImages(this.IMAGES);
-      this.x = 40;
-      this.y = 60;
-      this.width = 200;
-      this.height = 60;
-      this.setPercentageBottle(0);
-    }
-  
-    setPercentageBottle(percentageBottle) {
-      this.percentageBottle = percentageBottle;
-      let path = this.IMAGES[this.setImagesPercentageBottle()];
-      this.img = this.imageCache[path];
-    }
-  
-    setImagesPercentageBottle() {
-      if (this.percentageBottle == 0) {
-        return 0;
-      } else if (this.percentageBottle <= 20) {
-        return 1;
-      } else if (this.percentageBottle <= 40) {
-        return 2;
-      } else if (this.percentageBottle <= 60) {
-        return 3;
-      } else if (this.percentageBottle <= 80) {
-        return 4;
-      } else {
-        return 5;
-      }
-    }
+  IMAGES = [
+    'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/0.png',
+    'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/20.png',
+    'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/40.png',
+    'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/60.png',
+    'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/80.png',
+    'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/100.png',
+  ]
+  percentageBottle = 0;
+
+  /**
+* Initializes a new instance of the StatusBarBottle class.
+*/
+  constructor() {
+    super();
+    this.loadImages(this.IMAGES);
+    this.x = 40;
+    this.y = 60;
+    this.width = 200;
+    this.height = 60;
+    this.setPercentageBottle(0);
   }
 
-  class StatusBarCoin extends DrawableObject {
-
-    IMAGES = [
-      'img/7_statusbars/1_statusbar/1_statusbar_coin/green/0.png',
-      'img/7_statusbars/1_statusbar/1_statusbar_coin/green/20.png',
-      'img/7_statusbars/1_statusbar/1_statusbar_coin/green/40.png',
-      'img/7_statusbars/1_statusbar/1_statusbar_coin/green/60.png',
-      'img/7_statusbars/1_statusbar/1_statusbar_coin/green/80.png',
-      'img/7_statusbars/1_statusbar/1_statusbar_coin/green/100.png',
-    ]
-    percentageCoin = 0;
-  
-    constructor() {
-      super();
-      this.loadImages(this.IMAGES);
-      this.x = 40;
-      this.y = 115;
-      this.width = 200;
-      this.height = 60;
-      this.setPercentageCoin(0);
-    }
-  
-    setPercentageCoin(percentageCoin) {
-      this.percentageCoin = Math.min(100, Math.max(0, percentageCoin));
-      let path = this.IMAGES[this.setImagesPercentageCoin()];
-      this.img = this.imageCache[path];
-    }
-  
-    setImagesPercentageCoin() {
-      if (this.percentageCoin <= 10) {
-          return 0;
-      } else if (this.percentageCoin <= 20) {
-          return 1;
-      } else if (this.percentageCoin <= 40) {
-          return 2;
-      } else if (this.percentageCoin <= 60) {
-          return 3;
-      } else if (this.percentageCoin <= 90) {
-          return 4;
-      } else {
-          return 5;
-      }
-  }
+  /**
+* Sets the percentage of the bottle and updates the image accordingly.
+*/
+  setPercentageBottle(percentageBottle) {
+    this.percentageBottle = percentageBottle;
+    let path = this.IMAGES[this.setImagesPercentageBottle()];
+    this.img = this.imageCache[path];
   }
 
-  class StatusBarEndboss extends DrawableObject {
-
-    IMAGES = [
-      'img/7_statusbars/2_statusbar_endboss/green/green0.png',
-      'img/7_statusbars/2_statusbar_endboss/green/green20.png',
-      'img/7_statusbars/2_statusbar_endboss/green/green40.png',
-      'img/7_statusbars/2_statusbar_endboss/green/green60.png',
-      'img/7_statusbars/2_statusbar_endboss/green/green80.png',
-      'img/7_statusbars/2_statusbar_endboss/green/green100.png',
-    ]
-    percentageEndboss = 100;
-  
-  
-    constructor() {
-      super();
-      this.loadImages(this.IMAGES);
-      this.x = 450;
-      this.y = 15;
-      this.width = 200;
-      this.height = 60;
-      this.setPercentageEndboss(100);
-    }
-  
-    setPercentageEndboss(percentageEndboss) {
-      this.percentageEndboss = percentageEndboss;
-      let path = this.IMAGES[this.resolveImageIndexEndboss()];
-      this.img = this.imageCache[path];
-    }
-  
-    resolveImageIndexEndboss() {
-      if (this.percentageEndboss == 100) {
-        return 5;
-      } else if (this.percentageEndboss >= 80) {
-        return 4;
-      } else if (this.percentageEndboss >= 60) {
-        return 3;
-      } else if (this.percentageEndboss >= 40) {
-        return 2;
-      } else if (this.percentageEndboss >= 20) {
-        return 1;
-      } else {
-        return 0;
-      }
+  /**
+* Returns the index of the image to be used based on the percentage of the bottle.
+*/
+  setImagesPercentageBottle() {
+    if (this.percentageBottle == 0) {
+      return 0;
+    } else if (this.percentageBottle <= 20) {
+      return 1;
+    } else if (this.percentageBottle <= 40) {
+      return 2;
+    } else if (this.percentageBottle <= 60) {
+      return 3;
+    } else if (this.percentageBottle <= 80) {
+      return 4;
+    } else {
+      return 5;
     }
   }
+}
+
+class StatusBarCoin extends DrawableObject {
+
+  IMAGES = [
+    'img/7_statusbars/1_statusbar/1_statusbar_coin/green/0.png',
+    'img/7_statusbars/1_statusbar/1_statusbar_coin/green/20.png',
+    'img/7_statusbars/1_statusbar/1_statusbar_coin/green/40.png',
+    'img/7_statusbars/1_statusbar/1_statusbar_coin/green/60.png',
+    'img/7_statusbars/1_statusbar/1_statusbar_coin/green/80.png',
+    'img/7_statusbars/1_statusbar/1_statusbar_coin/green/100.png',
+  ]
+  percentageCoin = 0;
+
+  /**
+* Initializes a new instance of the class.
+*/
+  constructor() {
+    super();
+    this.loadImages(this.IMAGES);
+    this.x = 40;
+    this.y = 115;
+    this.width = 200;
+    this.height = 60;
+    this.setPercentageCoin(0);
+  }
+
+  /**
+* Sets the percentage of coins and updates the image accordingly.
+*/
+  setPercentageCoin(percentageCoin) {
+    this.percentageCoin = Math.min(100, Math.max(0, percentageCoin));
+    let path = this.IMAGES[this.setImagesPercentageCoin()];
+    this.img = this.imageCache[path];
+  }
+
+  /**
+* Returns the index of the image to be used based on the percentage of coins.
+*/
+  setImagesPercentageCoin() {
+    if (this.percentageCoin <= 10) {
+      return 0;
+    } else if (this.percentageCoin <= 20) {
+      return 1;
+    } else if (this.percentageCoin <= 40) {
+      return 2;
+    } else if (this.percentageCoin <= 60) {
+      return 3;
+    } else if (this.percentageCoin <= 90) {
+      return 4;
+    } else {
+      return 5;
+    }
+  }
+}
+
+class StatusBarEndboss extends DrawableObject {
+
+  IMAGES = [
+    'img/7_statusbars/2_statusbar_endboss/green/green0.png',
+    'img/7_statusbars/2_statusbar_endboss/green/green20.png',
+    'img/7_statusbars/2_statusbar_endboss/green/green40.png',
+    'img/7_statusbars/2_statusbar_endboss/green/green60.png',
+    'img/7_statusbars/2_statusbar_endboss/green/green80.png',
+    'img/7_statusbars/2_statusbar_endboss/green/green100.png',
+  ]
+  percentageEndboss = 100;
+
+  /**
+* Initializes a new instance of the class.
+*/
+  constructor() {
+    super();
+    this.loadImages(this.IMAGES);
+    this.x = 450;
+    this.y = 15;
+    this.width = 200;
+    this.height = 60;
+    this.setPercentageEndboss(100);
+  }
+
+  /**
+* Sets the percentage of the endboss and updates the image accordingly.
+*/
+  setPercentageEndboss(percentageEndboss) {
+    this.percentageEndboss = percentageEndboss;
+    let path = this.IMAGES[this.resolveImageIndexEndboss()];
+    this.img = this.imageCache[path];
+  }
+
+  /**
+* Resolves the index of the image to be used based on the percentage of the endboss.
+*/
+  resolveImageIndexEndboss() {
+    if (this.percentageEndboss == 100) {
+      return 5;
+    } else if (this.percentageEndboss >= 80) {
+      return 4;
+    } else if (this.percentageEndboss >= 60) {
+      return 3;
+    } else if (this.percentageEndboss >= 40) {
+      return 2;
+    } else if (this.percentageEndboss >= 20) {
+      return 1;
+    } else {
+      return 0;
+    }
+  }
+}

@@ -78,6 +78,9 @@ class Character extends MovableObject {
     lastFrameChangeTime = 0;
     currentImageIndex = 0;
 
+    /**
+     * Constructs a new instance of the class.
+     */
     constructor() {
         super().loadImage('img/2_character_pepe/1_idle/idle/I-1.png');
         this.loadImages(this.IMAGES_IDLE);
@@ -94,6 +97,10 @@ class Character extends MovableObject {
         this.sleep_sound.volume = 0.3;
     }
 
+    /**
+     * Animates the character's movement and actions.
+     * This function is called repeatedly to update the character's animation and movement.
+     */
     animate() {
         setInterval(() => {
             this.walking_sound.pause();
@@ -102,14 +109,14 @@ class Character extends MovableObject {
                 this.otherDirection = false;
                 if (!masterSound) {
                     this.walking_sound.play();
-                  }
+                }
                 this.resetIdleTimer();
             } else if ((this.world.keyboard.LEFT || this.world.keyboard.A) && this.x > 0) {
                 this.moveLeft();
                 this.otherDirection = true;
                 if (!masterSound) {
                     this.walking_sound.play();
-                  }
+                }
                 this.resetIdleTimer();
             }
             if (this.world.keyboard.SPACE && !this.isAboveGround()) {
@@ -128,7 +135,7 @@ class Character extends MovableObject {
                 if (this.world.keyboard.LEFT || this.world.keyboard.RIGHT || this.world.keyboard.A || this.world.keyboard.D) {
                     this.playAnimation(this.IMAGES_WALKING);
                     this.resetIdleTimer();
-                }else if (this.world.keyboard.E) {
+                } else if (this.world.keyboard.E) {
                     this.resetIdleTimer();
                 }
                 else {
@@ -138,12 +145,18 @@ class Character extends MovableObject {
         }, 1000 / 60);
     }
 
+    /**
+    * Executes the gameOver function after a delay of 700 milliseconds.
+     */
     gameOverTime() {
         setTimeout(() => {
-        gameOver();
-     }, 700);
+            gameOver();
+        }, 700);
     }
 
+    /**
+     * Checks the idle state of the object based on the time since the last activity.
+     */
     checkIdleState() {
         const now = Date.now();
         const timeSinceLastActivity = now - this.lastActiveTime;
@@ -159,6 +172,9 @@ class Character extends MovableObject {
         }
     }
 
+    /**
+     * Plays an animation by updating the current image based on the provided images array.
+     */
     playAnimation(images) {
         const now = Date.now();
         if (now - this.lastFrameChangeTime >= this.frameInterval) {
@@ -168,6 +184,9 @@ class Character extends MovableObject {
         }
     }
 
+    /**
+     * Resets the idle timer by updating the last active time to the current time.
+     */
     resetIdleTimer() {
         this.lastActiveTime = Date.now();
     }

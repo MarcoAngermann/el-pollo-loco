@@ -23,6 +23,9 @@ class ThrowableObject extends MovableObject {
     'img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png',
   ];
 
+  /**
+ * Constructs a new instance of the ThrowableObject class.
+ */
   constructor(x, y, direction) {
     super().loadImage('img/6_salsa_bottle/salsa_bottle.png');
     this.loadImages(this.IMAGES_ROTATE);
@@ -38,6 +41,9 @@ class ThrowableObject extends MovableObject {
     this.bottle_splash_audio.volume = 0.2;
   }
 
+  /**
+ * Applies gravity to the object and sets its speedY to 10. If otherDirection is true,
+ */
   throw() {
     this.applyGravity();
     this.speedY = 10;
@@ -53,6 +59,9 @@ class ThrowableObject extends MovableObject {
     }
   }
 
+  /**
+ * Animates the object by continuously updating its image source and playing splash animation if it is not already splashing and is above the ground.
+ */
   animate() {
     this.animateInterval = setInterval(() => {
       if (!this.isSplashing) {
@@ -68,14 +77,20 @@ class ThrowableObject extends MovableObject {
     }, 50);
   }
 
+  /**
+ * Plays the splash animation and deletes the object from the game after the animation is complete.
+ */
   playSplashAnimation() {
-    clearInterval(this.throwInterval); 
+    clearInterval(this.throwInterval);
     this.playAnimation(this.IMAGES_SPLASH);
     setTimeout(() => {
       this.deleteFromGame();
-    }, this.IMAGES_SPLASH.length * 50); 
+    }, this.IMAGES_SPLASH.length * 50);
   }
 
+  /**
+ * Deletes the object from the game by clearing the animation interval, setting the width and height to 0,
+ */
   deleteFromGame() {
     clearInterval(this.animateInterval);
     this.width = 0;
@@ -89,4 +104,4 @@ class ThrowableObject extends MovableObject {
 
 
 
-    
+

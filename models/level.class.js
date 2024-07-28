@@ -7,7 +7,10 @@ class Level {
     backgroundObjects;
     level_end_x = 2250;
 
-    constructor(enemies,endboss, clouds, backgroundObjects, coins, bottles) {
+    /**
+ * Initializes a new instance of the Level class.
+ */
+    constructor(enemies, endboss, clouds, backgroundObjects, coins, bottles) {
         this.bottles = bottles;
         this.coins = coins;
         this.enemies = enemies;
